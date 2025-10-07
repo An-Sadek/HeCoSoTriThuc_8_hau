@@ -1,3 +1,4 @@
+#define NDEBUG
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -5,9 +6,10 @@
 #include <assert.h>
 
 
-int poss_col, poss_row;
 
-bool check(int** board, const int row, const int col){
+bool check(int board[9][9], const int row, const int col){
+	int poss_col, poss_row;
+	
 	for (int i = 1; i <= 8; i++){
 		// Kiem tra rang buoc hang
 		if (board[row][i] < 0)
@@ -29,14 +31,28 @@ bool check(int** board, const int row, const int col){
 			
 		// Kiem tra trong pham vi gioi han
 		if (
-			((1 <= poss_row) <= 8) &&
-			((1 <= poss_col) <= 8)
+			((1 <= poss_row) && (poss_row <= 8)) &&
+			((1 <= poss_row) && (poss_row <= 8))
 		) {
 			
 			// Kiem tra dong thoi duong cheo chinh lan duong cheo phu
 			if (
-				(board[poss_row][poss_col] < 0) ||
-				(board[9-poss_row][9-poss_col] < 0)
+				(board[9 - poss_row][9 - poss_col] < 0) 
+			)
+				return false;
+		}
+		
+		poss_row = 9 - i + row;
+		poss_col = 9 - i + col;
+		
+		if (
+			((1 <= poss_row) && (poss_row <= 8)) &&
+			((1 <= poss_row) && (poss_row <= 8))
+		) {
+			
+			// Kiem tra dong thoi duong cheo chinh lan duong cheo phu
+			if (
+				(board[poss_row][poss_col] < 0) 
 			)
 				return false;
 		}
@@ -54,6 +70,7 @@ void update(int board[9][9], const int row, const int col, int sign) {
 	
 	int poss_row, poss_col;
 
+    
     for (int i = 1; i <= 8; i++) {
         board[row][i] += sign;
 		board[i][col] += sign;
@@ -73,21 +90,30 @@ void update(int board[9][9], const int row, const int col, int sign) {
 		
 	}
 	
-	// Trung tam co tong cong 4 lan cong, nen phai tru lai 3
 	board[row][col] -= 3*sign;
 }
 
 
-bool solve(int** board, const int curr_row, const int curr_col, int* result){
+bool solve(int** board, const int row, const int col, int* result){
 	// Dung khi phan tu cuoi mang ket qua != 0
 	if (result[9] != 0){
 		return true;
 	}
 	
-	// Khi thuc thi ham nay thi cap nhat
+	// Khi thuc thi ham nay thi tien hanh cap nhat luon
+	update(board, row, col, -1);
+	result[row] = col;
 	
 }
 
+void print_board(int board[9][9]){
+	for (int i = 1; i <= 8; i++){
+		for (int j = 1; j <= 8; j++){
+			printf("%d ", board[i][j]);
+		}
+		printf("\n");
+	}
+}
 
 int main(){
 	/*
@@ -104,10 +130,28 @@ int main(){
 	*/
 	// Khoi tao mang 2 chieu 9x9 the hien trang thai cua ban co
 	int board[9][9] = {0};
-	
+	print_board(board);
 	
 	// Khoi tao mang ket qua voi cac phan tu deu bang 0
 	// Neu result[i] = 0 thi chua xet hang i
-	int row_result[9] = {0};
+	int result[9] = {0};
+	
+	// TEST
+	// KT vi tri kha thi 1
+	bool isValid1 = check(board, 0, 0);
+	printf("\n%d\n", isValid1);
+	
+	// KT update (+) 
+	update(board, 5, 5, 1);
+	print_board(board);
+	printf("\n");
+	
+	// KT update (-) 
+	update(board, 2, 2, -1);
+	print_board(board);
+	
+	bool isValid2 = check(board, 2, 2);
+	printf("\n%d\n", isValid2);
+	
 	return 0;
 }
