@@ -1,84 +1,65 @@
-#include "_8_queens.h"
-
 #include <iostream>
 #include <queue>
 #include <cassert>
 
-
-bool check(int board[8][8], const int row, const int col){
-	if (board[row][col] < 0){
-		return false;
-	}
-	
-	return true;
+bool check(int board[8][8], int row, int col) {
+    return board[row][col] == 0;
 }
 
-
-void update(int board[8][8], const int row, const int col, int sign) {
+void update(int board[8][8], int row, int col, int sign) {
     assert(sign == 1 || sign == -1);
-    assert(1 <= row && row <= 8);
-	assert(1 <= col && col <= 8);
-	
-	int poss_row, poss_col;
-
-    
-    for (int i = 0; i <= 7; i++) {
+    assert(0 <= row && row <= 7);
+    assert(0 <= col && col <= 7);
+    for (int i = 0; i < 8; i++) {
         board[row][i] += sign;
-		board[i][col] += sign;
+        board[i][col] += sign;
     }
-	
-	for (int i = -7; i <= 7; i++){
-		poss_row = row + i;
-		poss_col = col + i;
-		
-		if (
-			((0 <= poss_row) && (poss_row <= 7)) &&
-			((0 <= poss_col) && (poss_col <= 7))
-		) {
-			board[poss_row][poss_col] += sign;
-			board[poss_row][col-i] += sign;
-		}
-		
-	}
-	
-	board[row][col] -= 3*sign;
+    for (int i = -7; i <= 7; i++) {
+        int poss_row = row + i;
+        int poss_col = col + i;
+        if (poss_row >= 0 && poss_row < 8 && poss_col >= 0 && poss_col < 8) {
+            board[poss_row][poss_col] += sign;
+        }
+        poss_col = col - i;
+        if (poss_row >= 0 && poss_row < 8 && poss_col >= 0 && poss_col < 8) {
+            board[poss_row][poss_col] += sign;
+        }
+    }
+    board[row][col] -= 3 * sign;
 }
 
+bool solve(int board[8][8], int row, int col, int result[8]) {
+    // Base case: all queens are placed
+    if (row == 8) {
+        return true;
+    }
 
-std::queue<int> solve(int board[8][8], const int col){
-	// Cap nhat trang thai ban co, mac dinh se la hang 1, cot tu chon
-	// tru lai bieu thi ko duoc dat quan hau
-	update(board, 1, col, -1);
+    // Try placing a queen in each column of the current row
+    for (int c = col; c < 8; c++) {
+        if (check(board, row, c)) {
+            result[row] = c; // Place queen
+            update(board, row, c, -1); // Mark attacked positions
 
-	// Khoi tao row = 1, do qua hang thu 2
-	int row = 1;
-	int i;
-	int last_col;
-	bool placed;
+            // Move to the next row
+            if (solve(board, row + 1, 0, result)) {
+                return true;
+            }
 
-	// Khoi tao mang 2 chieu vieng tham, ket hop da dat lan
-	bool visited[8][8];
-	visited[0][col] = true;
+            // Backtrack: remove queen and unmark positions
+            update(board, row, c, 1);
+            result[row] = 0;
+        }
+    }
 
-	// Khoi tao hang doi q voi cac buoc kha thi o hang thu 2
-	std::queue<int> result;
-	result.push(col);
-
-	// Duyet den khi row = 8
-	while (row < 8){
-		
-		
-	}
-	
-	
-	return std::queue<int>();
+    // No valid position found in this row, backtrack to previous row
+    return false;
 }
 
-void print_board(int board[8][8]){
-	for (int i = 0; i <= 7; i++){
-		for (int j = 0; j <= 7; j++){
-			printf("%d\t", board[i][j]);
-		}
-		printf("\n");
-	}
+void print_board(int board[8][8]) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            printf("%2d\t", board[i][j]);
+        }
+        printf("\n");
+    }
 }
