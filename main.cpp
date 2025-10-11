@@ -9,7 +9,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
     // |-- Chuyen string sang int
-    int start_col = std::atoi(argv[1]);
+    short start_col = std::atoi(argv[1]);
 
     // |-- Kiem tra nguoi dung co nhap thu tu (1->8)
     if (!(1 <= start_col && start_col <= 8)){
@@ -20,16 +20,16 @@ int main(int argc, char* argv[]){
     start_col--;
 
     // Khoi tao ban co
-    int board[8][8] = {0};
+    short board[8][8] = {0};
 
     // Khoi tao mang ket qua
-    int* result = (int*)malloc(8 * sizeof(int));
+    short* result = (short*)malloc(8 * sizeof(short));
 
     // Giai bai toan
     result = solve(board, start_col);
 
     // Cong them 1, bien index (0->7) sang thu thu tu (1->8)
-    for (int i = 0; i < 8; i++){
+    for (short i = 0; i < 8; i++){
         printf("%d ", result[i]+1);
     }
     printf("\n");

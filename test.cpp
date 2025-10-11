@@ -3,7 +3,7 @@
 
 int main() {
     // Khoi tao ban co de test
-    int board[8][8] = {0};
+    short board[8][8] = {0};
     print_board(board);
 
     // Kiem tra function check()
@@ -22,7 +22,7 @@ int main() {
 
     // Test check for row 2
     printf("Check(board, 2, i): ");
-    for (int i = 0; i < 8; i++) {
+    for (short i = 0; i < 8; i++) {
         bool isValid2 = check(board, 2, i);
         printf("%d ", isValid2);
     }
@@ -35,18 +35,18 @@ int main() {
 
     // Kiem tra ham check sau khi cap nhat
     printf("Check(board, 2, i): ");
-    for (int i = 0; i < 8; i++) {
+    for (short i = 0; i < 8; i++) {
         bool isValid3 = check(board, 2, i);
         printf("%d ", isValid3);
     }
     printf("\n\n");
 
     // Test solve
-    int board_puzzle[8][8] = {0};
-    int* result = (int*)malloc(8 * sizeof(int));
+    short board_puzzle[8][8] = {0};
+    short* result = (short*)malloc(8 * sizeof(short));
     result = solve(board_puzzle, 1);
 
-    for(int i = 0; i < 8; i++){
+    for(short i = 0; i < 8; i++){
         printf("%d ", result[i]);
     }
     printf("\n ");

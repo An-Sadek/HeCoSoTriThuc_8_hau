@@ -6,9 +6,9 @@
 #include <queue>
 #include <cassert>
 
-bool check(const int board[8][8], const int row, const int col);
-void update(int board[8][8], const int row, const int col, const int sign);
-int* solve(int board[8][8], const int start_col);
-void print_board(const int board[8][8]);
+bool check(const short board[8][8], const short row, const short col);
+void update(short board[8][8], const short row, const short col, const short sign);
+short* solve(short board[8][8], const short start_col);
+void print_board(const short board[8][8]);
 
 #endif

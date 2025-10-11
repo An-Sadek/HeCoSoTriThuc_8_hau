@@ -1,7 +1,7 @@
 #include "_8_queens.h"
 
 
-bool check(const int board[8][8], const int row, const int col) {
+bool check(const short board[8][8], const short row, const short col) {
     /*
     Ham kiem tra vi tri dat con hau co hop le hay khong.
     Do da quy dinh trong ham update nhung vi tri duoc phep dat la 0,
@@ -17,7 +17,7 @@ bool check(const int board[8][8], const int row, const int col) {
 }
 
 
-void update(int board[8][8], int row, int col, int sign) {
+void update(short board[8][8], short row, short col, short sign) {
     /*
     Ham cap nhat trang thai ban co.
     Neu dat con hau thi tru 1 lai cac huong di chuyen.
@@ -37,16 +37,19 @@ void update(int board[8][8], int row, int col, int sign) {
     assert(0 <= row && row <= 7);
     assert(0 <= col && col <= 7);
 
+    // Khai bao cac chi so co the dat duoc trong duong cheo
+    short poss_row, poss_col;
+
     // Cap nhat ngang doc
-    for (int i = 0; i < 8; i++) {
+    for (short i = 0; i < 8; i++) {
         board[row][i] += sign;
         board[i][col] += sign;
     }
 
     // Cap nhat theo duong cheo
-    for (int i = -7; i <= 7; i++) {
-        int poss_row = row + i;
-        int poss_col = col + i;
+    for (short i = -7; i <= 7; i++) {
+        poss_row = row + i;
+        poss_col = col + i;
 
         // Duong cheo chinh
         if (poss_row >= 0 && poss_row < 8 && poss_col >= 0 && poss_col < 8) {
@@ -67,7 +70,7 @@ void update(int board[8][8], int row, int col, int sign) {
 }
 
 
-int* solve(int board[8][8], const int start_col) {
+short* solve(short board[8][8], const short start_col) {
     /*
     Ham backtracking dung de giai bai toan
         Dau vao: 
@@ -80,17 +83,17 @@ int* solve(int board[8][8], const int start_col) {
     */
     // Khoi tao result bang cach phan bo bo nho, 
     // tung phan tu = 0, chua co ket qua
-    int* result = (int*)malloc(8 * sizeof(int));
-    for (int i = 0; i < 8; i++) result[i] = 0;
+    short* result = (short*)malloc(8 * sizeof(short));
+    for (short i = 0; i < 8; i++) result[i] = 0;
 
     // Khoi tao cac gia tri
     // |-- row: Hang dang duoc xet
     // |-- col: Cot dang duoc xet
     // |-- prev_col: Cot cuoi cung trong ket qua, 
     //     dung de backtrack vi tri tiep theo
-    int row = 0;
-    int col = start_col;
-    int prev_col;
+    short row = 0;
+    short col = start_col;
+    short prev_col;
 
     while (true) {
         // Duyet tung cot (0 -> 7), 
@@ -138,14 +141,14 @@ int* solve(int board[8][8], const int start_col) {
 }
 
 
-void print_board(const int board[8][8]) {
+void print_board(const short board[8][8]) {
     /*
     Ham kiem tra trang thai ban co phuc vu go loi la chinh
         Dau vao:
             board: Ban co
     */
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (short i = 0; i < 8; i++) {
+        for (short j = 0; j < 8; j++) {
             printf("%2d\t", board[i][j]);
         }
         printf("\n");

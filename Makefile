@@ -4,5 +4,5 @@ test:
 	./test
 
 run:
-	g++ -o main main.cpp _8_queens.cpp
+	g++ -o main main.cpp _8_queens.cpp -O3
 	./main 1
