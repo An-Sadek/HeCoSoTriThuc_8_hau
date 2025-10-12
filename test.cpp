@@ -49,7 +49,13 @@ int main() {
     for(short i = 0; i < 8; i++){
         printf("%d ", result[i]);
     }
-    printf("\n ");
+    printf("\n");
+
+    short puzzle_example[8][8] = {0};
+    update(puzzle_example, 0, 1, -1);
+    update(puzzle_example, 3, 4, -1);
+
+    print_board(puzzle_example);
 
     free(result);
     return 0;
