@@ -1,3 +1,18 @@
+# Mục lục
+1. [Giới thiệu nhóm](#giới-thiệu-nhóm)
+2. [Giới thiệu đề tài](#giới-thiệu-đề-tài)
+3. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+4. [Thư viện sử dụng](#thư-viện-sử-dụng)
+5. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
+6. [Mô tả bài toán](#mô-tả-bài-toán)
+7. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
+    1. [Quan hệ giữa quân hậu và các hướng tấn công](#quan-hệ-giữa-quân-hậu-và-các-hướng-tấn-công)
+    2. [Biểu diễn ràng buộc trong toán học](#biểu-diễn-ràng-buộc-trong-toán-học)
+    3. [Hạn chế về việc biểu diễn bàn cờ trong không gian nhị phân](#hạn-chế-về-việc-biểu-diễn-bàn-cờ-trong-không-gian-nhị-phân)
+    4. [Kiểm tra vị trí con hậu hợp lệ](#kiểm-tra-vị-trí-đặt-quân-hậu-hợp-lệ)
+    5. [Lý thuyết giải bài toán](#lý-thuyết-giải-bài-toán)
+8. [Xây dựng mã nguồn](#xây-dựng-mã-nguồn)
+
 # Giới thiệu nhóm
 Nhóm: 4 <br>
 Môn: Hệ cơ sở tri thức <br>
@@ -52,7 +67,7 @@ Sau khi đã cài g++, biên dịch bằng lệnh `g++ -o <tên file> main.cpp _
 # Mô tả bài toán
 (pass)
 
-# Ý tưởng giải bài toán
+## Ý tưởng giải bài toán
 Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in {0, 1}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ. 
 
 ## Quan hệ giữa quân hậu và các hướng tấn công
@@ -93,7 +108,7 @@ Nếu biểu diễn bàn cờ trong không gian số nguyên, vị trí an toàn
 ## Lý thuyết giải bài toán
 Quá trình đặt quân hậu bao gồm: Cập nhật trạng thái bàn cờ bằng cách trừ các ô mà quân hậu vừa đặt có thể tấn công và thêm kết quả.<br>
 Quá trình gỡ quân hậu bao gồm: Cập nhật trạng thái bàn cờ bằng cách cộng các ô mà quân hậu vừa gỡ có thể tấn công và gỡ kết quả. <br>
-Đặt quân hậu đầu tiên tại vị trí (1, start_col) với start_col là cột do người dùng tự chọn $1 \leq start\_col \leq 8$. <br>
+Đặt quân hậu đầu tiên tại vị trí (1, start_col) với start_col là cột do người dùng tự chọn $1 \leq start_col \leq 8$. <br>
 Duyệt hàng tiếp theo, bắt đầu ở ô đầu tiên, nếu giá trị tại ô đó = 0 thì đặt quân hậu vầ tiếp đến hàng tiếp theo cho đến khi duyệt hết hàng. <br>
 Nếu duyệt hết các ô tại một hàng mà không tìm thấy kết quả thì lấy vị trí cuối cùng vừa lưu, và tiến đến ô tiếp theo chưa được duyệt.
 
