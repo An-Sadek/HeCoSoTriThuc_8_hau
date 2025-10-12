@@ -93,15 +93,16 @@ Nếu biểu diễn bàn cờ trong không gian số nguyên, vị trí an toàn
 ## Lý thuyết giải bài toán
 Quá trình đặt quân hậu bao gồm: Cập nhật trạng thái bàn cờ bằng cách trừ các ô mà quân hậu vừa đặt có thể tấn công và thêm kết quả.<br>
 Quá trình gỡ quân hậu bao gồm: Cập nhật trạng thái bàn cờ bằng cách cộng các ô mà quân hậu vừa gỡ có thể tấn công và gỡ kết quả. <br>
-Đặt quân hậu đầu tiên tại vị trí (1, start_col) với start_col là cột do người dùng tự chọn $1 \leq start_col \leq 8$. <br>
+Đặt quân hậu đầu tiên tại vị trí (1, start_col) với start_col là cột do người dùng tự chọn $1 \leq start\_col \leq 8$. <br>
 Duyệt hàng tiếp theo, bắt đầu ở ô đầu tiên, nếu giá trị tại ô đó = 0 thì đặt quân hậu vầ tiếp đến hàng tiếp theo cho đến khi duyệt hết hàng. <br>
 Nếu duyệt hết các ô tại một hàng mà không tìm thấy kết quả thì lấy vị trí cuối cùng vừa lưu, và tiến đến ô tiếp theo chưa được duyệt.
 
 # Xây dựng mã nguồn
 Code sẽ bao gồm 3 hàm chính để giải và 1 hàm phụ:
-- Hàm update dùng để cập nhật trạng thái bàn cờ
-- Hàm check dùng để kiểm tra vị trí đang xét của quân hậu
-- Hàm solve chứa thuật toán backtracking để giải
-- Hàm print_board dùng để in trạng thái bàn cờ và vị trí đặt quân hậu
+- Hàm update dùng để cập nhật trạng thái bàn cờ.
+- Hàm check dùng để kiểm tra vị trí đang xét của quân hậu.
+- Hàm solve chứa thuật toán backtracking để giải.
+- Hàm print_board dùng để in trạng thái bàn cờ và vị trí đặt quân hậu.
+
 Trong phân xây dựng mã nguồn sẽ sử dụng index (0->7).<br>
 Phần giải thích còn lại đều trong mã nguồn.
