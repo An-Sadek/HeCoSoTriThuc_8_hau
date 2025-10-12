@@ -164,10 +164,10 @@ void print_board(const short result[8]) {
     for (short i = 0; i < 8; i++) {
         for (short j = 0; j < 8; j++) {
             if (result[i] == j)
-                std::cout << "Q ";
+                printf("Q ");
             else
-                std::cout << ". ";
+                printf(". ");
         }
-        std::cout << "\n";
+        printf("\n");
     }
 }
