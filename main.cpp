@@ -25,20 +25,7 @@ int main(int argc, char* argv[]){
     // Khởi tạo mảng kết quả
     short* result = (short*)malloc(8 * sizeof(short)); // Phân bổ bộ nhớ
 
-    // Giải bài toán
-    result = solve(board, start_col);
-
-    // Biến index sang thứ tự (1 -> 8)
-    for (short i = 0; i < 8; i++){
-        printf("%d ", result[i]+1);
-    }
-    printf("\n");
-
-    // In vị trí con hậu
-    print_board(result);
-
-    // Giải phóng bộ nhớ
-    free(result);
+  
 
     return 0;
 }

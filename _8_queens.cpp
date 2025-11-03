@@ -73,72 +73,21 @@ void update(short board[8][8], short row, short col, short sign) {
 }
 
 
-short* solve(short board[8][8], const short start_col) {
-    /*
-    Hàm back tracking đẻ giải bài toán
-        Đầu vào:
-            board:      Trạng thái khởi tạo của bàn cờ
-            start_col:  Vị trí con hậu được đặt đầu tiên (0, start_col)
+bool solve(short board[8][8], short row, short col, short result[8]) {
+    if (row == 8) return true;
+    if (col == 8) return solve(board, row+1, 0, result);
 
-        Đầu ra:
-            result:     Mang kết quả thể hiện vị trí đặt con hậu tại cột
-                        result[i] = col, i là vị trí hàng
-    */
-    // Khởi tạo result
-    short* result = (short*)malloc(8 * sizeof(short)); // Phân bổ bộ nhớ
-    for (short i = 0; i < 8; i++) 
-        result[i] = 0; // Từng phần tử = 0
+    if (check(board, row, col)){
+        result[row] = col;
 
-    // Khởi tạo các biến
-    // |-- row: Hàng đang xét
-    // |-- col: Cột đang xét
-    // |-- prev_col:    Giá trị cuối cùng trong hàm kết quả,
-    //                  dùng để backtracking cột tiếp theo
-    short row = 0;
-    short col = start_col;
-    short prev_col;
-
-    while (true) {
-        // Duyệt từng cột, bỏ qua các cột mang giá trị <0
-        while (col < 8 && !check(board, row, col)) {
-            col++;
+        if (solve(board, row+1, 0, result)){
+            return true;
         }
 
-        // Nếu tìm được vị trí có thể đặt con hậu thì cập nhật
-        if (col < 8) {
-            update(board, row, col, -1);
-            result[row] = col;
-
-            // Đến biên thì trả về kết quả
-            if (row == 7)
-                return result;
-
-            // Chưa đến biên thì sang hàng tiếp theo
-            row++;
-            col = 0;
-        } else {
-            // Trường hợp kiểm tra hết cột
-            // Nếu không có khả thi thì về hàng trước
-            // Tiếp tục với cột tiếp theo đang xét
-            row--;
-
-            // Nếu bị lỗi khúc này thì lỗi giải thuật do 92 lời giải
-            // đều có từng cột ở hàng đầu tiên
-            if (row < 0){
-                assert(false);
-                printf("Bi loi trong thuat toan"); 
-            }
-
-            // Xóa con hậu và tiến hành backtrack
-            // Lấy cột tiếp theo từ giá trị lưu lần cuối trong kết quả
-            prev_col = result[row];
-            update(board, row, prev_col, +1);
-            col = prev_col + 1;
-            result[row] = 0;
-        }
+        result[row] = 0;
     }
 
-    return result;
+    return solve(board, row, col+1);
 }
 
 
