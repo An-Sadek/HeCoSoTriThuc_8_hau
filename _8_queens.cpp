@@ -87,7 +87,7 @@ bool solve(short board[8][8], short row, short col, short result[8]) {
         result[row] = 0;
     }
 
-    return solve(board, row, col+1);
+    return solve(board, row, col+1, result);
 }
 
 
