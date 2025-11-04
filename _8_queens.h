@@ -14,7 +14,7 @@ private:
 public:
     Solver();
 
-    void print_board_queen();
+    void print_board_queen(const int start_pos[2]);
     void print_board_state();
 
     bool in_bound(const int value);

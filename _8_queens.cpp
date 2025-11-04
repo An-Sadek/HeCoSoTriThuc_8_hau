@@ -15,16 +15,23 @@ void Solver::print_board_state() {
     }
 }
 
-void Solver::print_board_queen(){
+void Solver::print_board_queen(const int start_pos[2]){
     /*
     In bàn cờ dưới dạng quân hậu
     */
     for (int i = 0; i <= 7; i++) {
         for (int j = 0; j <= 7; j++) {
-            if (board[i][j]==1)
+            if (i == start_pos[0] && j == start_pos[1]){
+                printf("1 ");
+                continue;
+            }
+
+            if (board[i][j] == 1){
                 printf("Q ");
-            else
-                printf(". ");
+                continue;
+            }
+
+            printf(". ");
         }
         printf("\n");
     }
