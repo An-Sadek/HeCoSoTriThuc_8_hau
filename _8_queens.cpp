@@ -112,28 +112,40 @@ void Solver::update(int row, int col, int sign) {
     board[row][col] -= 3 * sign;
 }
 
-bool Solver::try_col(int row, const int col, const int start_pos[2], int count){
-    row = row % 8;
-    if (count == 8) return true;
-    if (col >= 8) return false;
+bool Solver::try_col(int row, const int col, int count){
+    /*
+    Hàm dùng để backtrack, thay vì sử dụng for loop thì sử dụng try_col.
+    Đầu vào:
+        row:    Hàng đang xét
+        col:    Cột đang xét
+        count:  Biến đếm. Nếu biến đếm đạt 8 tức là quay về hàng ban đầu,
+                trả về kết quả true.
 
+    */
+    row = row % 8; // Chia lấy phần nguyên mang về giá trị [0, 7]
+    if (count == 8) return true; // Count đặt 8 quay về hàng đầu tiên
+    if (col >= 8) return false; // Backtrack
+
+    // Nếu vị trí hợp lệ thì update, count+1 và tiếp sang hàng tiếp theo
     if (check(row, col)){
         update(row, col, +1);
         count++;
 
-        if (try_col(row + 1, 0, start_pos, count)){
+        if (try_col(row + 1, 0, count)){
             return true;
         }
 
+        // Backtrack
         update(row, col, -1);
         count--;
     }
 
-    return try_col(row, col+1, start_pos, count);
+    // Đi đến cột tiếp theo nếu không tìm được vị trí phù hợp
+    return try_col(row, col+1, count);
 }
 
 void Solver::solve(const int start_pos[2]) {
-    if (try_col(start_pos[0], start_pos[1], start_pos, 0)){
+    if (try_col(start_pos[0], start_pos[1], 0)){
         printf("Đã giải được bài toán\n");
     } else{
         printf("Không giải được bài toán, tìm lỗi!\n");

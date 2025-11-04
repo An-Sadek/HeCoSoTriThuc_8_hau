@@ -14,13 +14,15 @@ private:
 public:
     Solver();
 
+    // Hàm in
     void print_board_queen(const int start_pos[2]);
     void print_board_state();
 
+    // Hàm hoạt động
     bool in_bound(const int value);
     bool check(const int row, const int col);
     void update(const int row, const int col, const int sign);
-    bool try_col(int row, const int col, const int start_pos[2], int count);
+    bool try_col(int row, const int col, int count);
     void solve(const int lock[2]);
 };
 

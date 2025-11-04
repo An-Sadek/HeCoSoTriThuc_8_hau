@@ -8,10 +8,7 @@
 7. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
     1. [Quan hệ giữa quân hậu và các hướng tấn công](#quan-hệ-giữa-quân-hậu-và-các-hướng-tấn-công)
     2. [Biểu diễn ràng buộc trong toán học](#biểu-diễn-ràng-buộc-trong-toán-học)
-    3. [Hạn chế về việc biểu diễn bàn cờ trong không gian nhị phân](#hạn-chế-về-việc-biểu-diễn-bàn-cờ-trong-không-gian-nhị-phân)
-    4. [Kiểm tra vị trí con hậu hợp lệ](#kiểm-tra-vị-trí-đặt-quân-hậu-hợp-lệ)
-    5. [Lý thuyết giải bài toán](#lý-thuyết-giải-bài-toán)
-8. [Xây dựng mã nguồn](#xây-dựng-mã-nguồn)
+
 
 # Giới thiệu nhóm
 Nhóm: 4 <br>
@@ -83,15 +80,7 @@ Col sẽ mang chiều dương khi sang bên phải và row sẽ mang chiều dư
 Trong mảng 2 chiều 8 X 8, khoảng cách tối đa mà quân hậu có thể di chuyển là 7.
 ![Hướng tấn công của quân hậu về mặt toán học](imgs/Math_direction.jpg)
 
-## Biểu diễn ràng buộc trong toán học
-<!---TODO: Viết lại --->
-Với mảng 2 chiều board đã mô tả và mối quan hệ giữa quân hậu và các hướng tấn công, ta có được ràng buộc như sau:
-- Ràng buộc hàng: Mỗi hàng chỉ được chứa 1 con hậu, hay nói cách khác tổng số quân hậu trong mỗi hàng là 1.
-- Ràng buộc cột: Tổng số quân hậu trong mỗi cột là 1. 
-- Ràng buộc đường chéo chính: Vì không tính vị trí chính quân hậu được đặt nên số bước di chuyển tối đa là 7. 
-- Ràng buộc đường chéo phụ: Tương tự như ràng buộc đường chéo chính, nhưng l sẽ được tính theo cách khác. 
-
-## Hạn chế về việc biểu diễn bàn cờ trong không gian nhị phân
+## Biểu diễn bàn cờ trong không gian số nguyên
 Một trong những hạn chế của việc biểu diễn trong không gian nhị phân là khó diễn giải các ô có thể tấn công. Giả sử có bàn cờ 8 X 8, với 4 con hậu. Ô chứa con hậu sẽ mang giá trị 1 trong khi đó ô trống mang giá trị 0. Từ hình ảnh sau, nếu muốn xét vị trí có khả năng đặt quân hậu cần phải xét cả 4 ràng buộc như trên rất khó để diễn giải. Cặp hậu Q1 - Q3 sẽ tấn công lẫn nhau. 
 ![Bàn cờ 8 X 8 chứa quân hậu](imgs/Binary_8X8.jpg)
 
@@ -101,24 +90,21 @@ Một trong những hạn chế của việc biểu diễn trong không gian nh�
 - (4, 2): Bị cả Q1 lẫn Q3 tấn công.
 ![Hướng tấn công của 2 quân hậu Q1 và Q3](imgs/Q1Q3_direction.jpg)
 
-Để thống nhất, chúng em sẽ cho các ô bị tấn công mang giá trị âm.
+## Cập nhật bàn cờ trong không gian số nguyên và ràng buộc
+Nếu sử dụng không gian số nguyên thì chính trạng thái bàn cờ là ràng buộc và cũng là kết quả của bài toán. Cộng/trừ các hàng, cột, đường chéo đại diện cho việc đặt hoặc gỡ quân hậu. Trong đề tài này sẽ sử dụng (+) để biểu thị việc đặt quân hậu. Giả sử có bàn cờ 8X8, con hậu tại vị trí (4, 5). Những vị trí biểu thị (+1) là bị con hậu Q tấn công, những vị trí còn lại đều đặt được. Nếu gỡ quân hậu thì chỉ cần -1 lại.
+!["Các vị trí tấn công của Q trên bàn cờ 5X5"](!imgs/Queen_Update_8X8.jpg)
 
-## Kiểm tra vị trí đặt quân hậu hợp lệ
-Nếu biểu diễn bàn cờ trong không gian số nguyên, vị trí an toàn để đặt quân hậu sẽ có giá trị = 0.
+### Cập nhật hàng, cột
+Cập nhật hàng và cột thì tương đối đơn giản. Với $i \in \{1 .. 8\}$.
+Cập nhật đối với hàng: `board[row, i] += 1`
+Cập nhật đối với cột: `board[i, col] += 1`
 
-## Lý thuyết giải bài toán
-Quá trình đặt quân hậu bao gồm: Cập nhật trạng thái bàn cờ bằng cách trừ các ô mà quân hậu vừa đặt có thể tấn công và thêm kết quả.<br>
-Quá trình gỡ quân hậu bao gồm: Cập nhật trạng thái bàn cờ bằng cách cộng các ô mà quân hậu vừa gỡ có thể tấn công và gỡ kết quả. <br>
-Đặt quân hậu đầu tiên tại vị trí (1, start_col) với start_col là cột do người dùng tự chọn $1 \leq start_col \leq 8$. <br>
-Duyệt hàng tiếp theo, bắt đầu ở ô đầu tiên, nếu giá trị tại ô đó = 0 thì đặt quân hậu vầ tiếp đến hàng tiếp theo cho đến khi duyệt hết hàng. <br>
-Nếu duyệt hết các ô tại một hàng mà không tìm thấy kết quả thì lấy vị trí cuối cùng vừa lưu, và tiến đến ô tiếp theo chưa được duyệt.
+### Cập nhật chéo
+Đối với cập nhật đường chéo thì hơi phức tạp hơn. Do bàn cờ có thước 8X8, cho nên số bước tối đa mà có thể duyệt là 7. 
+Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col + i, pos_row \in \{1 .. 8\}, pos_col \in \{1 .. 8\}$
+Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col - i, pos_row \in \{1 .. 8\}, pos_col \in \{1 .. 8\}$
 
-# Xây dựng mã nguồn
-Code sẽ bao gồm 3 hàm chính để giải và 1 hàm phụ:
-- Hàm update dùng để cập nhật trạng thái bàn cờ.
-- Hàm check dùng để kiểm tra vị trí đang xét của quân hậu.
-- Hàm solve chứa thuật toán backtracking để giải.
-- Hàm print_board dùng để in trạng thái bàn cờ và vị trí đặt quân hậu.
 
-Trong phân xây dựng mã nguồn sẽ sử dụng index (0->7).<br>
-Phần giải thích còn lại đều trong mã nguồn.
+
+
+
