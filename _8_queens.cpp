@@ -7,8 +7,8 @@ void Solver::print_board_state() {
     /*
     In trạng thái của bàn cờ
     */
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i <= 7; i++) {
+        for (int j = 0; j <= 7; j++) {
             printf("%5d", board[i][j]);
         }
         printf("\n");
@@ -19,8 +19,8 @@ void Solver::print_board_queen(){
     /*
     In bàn cờ dưới dạng quân hậu
     */
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
+    for (int i = 0; i <= 7; i++) {
+        for (int j = 0; j <= 7; j++) {
             if (board[i][j]==1)
                 printf("Q ");
             else
@@ -30,15 +30,7 @@ void Solver::print_board_queen(){
     }
 }
 
-void Solver::print_result(){
-    /*
-    In kết quả bài toán (dạng mảng)
-    */
-    for (int i = 0; i < 8; i++){
-        printf("%d ", result[i]);
-    }
-    printf("\n");
-}
+
 
 bool Solver::in_bound(const int value){
     /*
@@ -85,7 +77,7 @@ void Solver::update(int row, int col, int sign) {
     int poss_row, poss_col;
 
     // Cập nhật đường ngang dọc
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i <= 7; i++) {
         board[row][i] += sign;
         board[i][col] += sign;
     }
@@ -113,25 +105,28 @@ void Solver::update(int row, int col, int sign) {
     board[row][col] -= 3 * sign;
 }
 
-bool Solver::try_col(const int row, const int col) {
-    if (row == 8) return true;
-    if (col == 8) return false;
+bool Solver::try_col(int row, const int col, const int start_pos[2], int count){
+    row = row % 8;
+    if (count == 8) return true;
+    if (col >= 8) return false;
 
-    if (check(row, col)) {
+    if (check(row, col)){
         update(row, col, +1);
-        result[row] = col;
+        count++;
 
-        if (try_col(row + 1, 0)) return true;
+        if (try_col(row + 1, 0, start_pos, count)){
+            return true;
+        }
 
         update(row, col, -1);
-        result[row] = -1;
+        count--;
     }
 
-    return try_col(row, col + 1);
+    return try_col(row, col+1, start_pos, count);
 }
 
-void Solver::solve(const int start_col) {
-    if(try_col(0, start_col)){
+void Solver::solve(const int start_pos[2]) {
+    if (try_col(start_pos[0], start_pos[1], start_pos, 0)){
         printf("Đã giải được bài toán\n");
     } else{
         printf("Không giải được bài toán, tìm lỗi!\n");

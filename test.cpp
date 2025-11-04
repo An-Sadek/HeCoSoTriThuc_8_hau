@@ -2,9 +2,10 @@
 
 
 int main() {
+    printf("main\n");
     Solver solver = Solver();
-    solver.solve(3);
-    solver.print_result();
+    const int start_pos[2] = {5, 5};
+    solver.solve(start_pos);
     solver.print_board_queen();
 
     return 0;
