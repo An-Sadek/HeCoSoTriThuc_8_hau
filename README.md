@@ -92,7 +92,7 @@ Một trong những hạn chế của việc biểu diễn trong không gian nh�
 
 ## Cập nhật bàn cờ trong không gian số nguyên và ràng buộc
 Nếu sử dụng không gian số nguyên thì chính trạng thái bàn cờ là ràng buộc và cũng là kết quả của bài toán. Cộng/trừ các hàng, cột, đường chéo đại diện cho việc đặt hoặc gỡ quân hậu. Trong đề tài này sẽ sử dụng (+) để biểu thị việc đặt quân hậu. Giả sử có bàn cờ 8X8, con hậu tại vị trí (4, 5). Những vị trí biểu thị (+1) là bị con hậu Q tấn công, những vị trí còn lại đều đặt được. Nếu gỡ quân hậu thì chỉ cần -1 lại.
-!["Các vị trí tấn công của Q trên bàn cờ 5X5"](!imgs/Queen_Update_8X8.jpg)
+!["Các vị trí tấn công của Q trên bàn cờ 5X5"](imgs/Queen_Update_8X8.jpg)
 
 ### Cập nhật hàng, cột
 Cập nhật hàng và cột thì tương đối đơn giản. Với $i \in \{1 .. 8\}$.
