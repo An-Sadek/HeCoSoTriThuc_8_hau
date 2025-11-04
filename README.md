@@ -48,19 +48,23 @@ cassert: Dùng để debug, phát hiện lỗi. <br>
 queue: Thư viện hàng chờ của C++.
 
 # Hướng dẫn sử dụng
-Để có thể chạy chỉ cần dùng `./main <Vị trí đặt quân hậu>`. Ví dụ: `./main 1`.
+Cài biên dịch <br>
+Đối với Ubuntu/Debian: <br>
+`sudo apt install build-essential`
 
-(Tùy chọn) Biên dịch đề tài
-Cài đặt compile g++ theo hướng dẫn sau 
-Debian/Ubuntu (Linux) mở terminal và nhập lệnh: <br>
-```
-sudo apt install build-essential
-```
-
-Windows cài theo hướng dẫn sau:
+Đối với Windows:
 [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw)
 
-Sau khi đã cài g++, biên dịch bằng lệnh `g++ -o <tên file> main.cpp _8_queens.cpp`.
+Biên dịch <br>
+Sau khi đã cài g++, biên dịch bằng lệnh `g++ -o main main.cpp _8_queens.cpp`.
+
+Chạy chương trình<br>
+Đối với Debian/Ubuntu<br>
+`./main {Hàng muốn đặt quân hậu đầu} {Cột muốn đặt quân hậu đầu}`
+
+Đối với Windows<br>
+`main.exe {Hàng muốn đặt quân hậu đầu} {Cột muốn đặt quân hậu đầu}`
+
 # Mô tả bài toán
 (pass)
 
@@ -82,7 +86,7 @@ Trong mảng 2 chiều 8 X 8, khoảng cách tối đa mà quân hậu có thể
 
 ## Biểu diễn bàn cờ trong không gian số nguyên
 Một trong những hạn chế của việc biểu diễn trong không gian nhị phân là khó diễn giải các ô có thể tấn công. Giả sử có bàn cờ 8 X 8, với 4 con hậu. Ô chứa con hậu sẽ mang giá trị 1 trong khi đó ô trống mang giá trị 0. Từ hình ảnh sau, nếu muốn xét vị trí có khả năng đặt quân hậu cần phải xét cả 4 ràng buộc như trên rất khó để diễn giải. Cặp hậu Q1 - Q3 sẽ tấn công lẫn nhau. 
-![Bàn cờ 8 X 8 chứa quân hậu](imgs/Binary_8X8.jpg)
+![Bàn cờ 8 X 8 chứa 4 quân hậu](imgs/Binary_8X8.jpg)
 
 Để có thể giải quyết vấn đề trên, giải pháp được đặt ra là chuyển bàn cờ sang không gian số nguyên. Nếu đặt, hoặc gỡ sẽ cộng hoặc trừ 1 đơn vị. Như vậy có thể biễu diễn tri thức dễ hiểu hơn. Như hình sau đây biểu diễn hướng tấn công của quân hậu, màu nhạt thể hiện hướng tấn công của Q1 (vàng) và Q3 (lam). Ô và hướng màu đậm thể hiện tấn công trùng lặp. Ví dụ đặt quân hậu tại các vị trí sau:
 - (3, 1): Sẽ không bị quân hậu nào tấn công.
