@@ -6,12 +6,14 @@
 #include <queue>
 #include <stack>
 
-bool check(const short board[8][8], const short row, const short col);
-void update(short board[8][8], const short row, const short col, const short sign);
-bool try_col(short board[8][8], const short row, const short col, short result[8]);
-void solve(short board[8][8], const short start_col, short result[8]);
-void print_board_queen(const short board[8][8]);
-void print_board_state(const short board[8][8]);
-void print_result(short result[8]);
+
+bool in_bound(const int value);
+bool check(const int board[8][8], const int row, const int col);
+void update(int board[8][8], const int row, const int col, const int sign);
+bool try_col(int board[8][8], const int row, const int col, int result[8]);
+void solve(int board[8][8], const int start_col, int result[8]);
+void print_board_queen(const int board[8][8]);
+void print_board_state(const int board[8][8]);
+void print_result(int result[8]);
 
 #endif

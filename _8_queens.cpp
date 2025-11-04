@@ -1,7 +1,17 @@
 #include "_8_queens.h"
 
 
-bool check(const short board[8][8], const short row, const short col) {
+bool in_bound(const int value){
+    /*
+    Dùng để xét hàng cột đang xét có trong phạm vi không.
+    Ví dụ đang xét ở vị trí (0, 0), 
+    thì chéo chính sẽ xét từ (-7, -7) đến (7, 7).
+    Mà phạm vi có thể cập nhật là (0, 0) -> (7, 7)
+    */
+    return (0 <= value && value <= 7);
+}
+
+bool check(const int board[8][8], const int row, const int col) {
     /*
     Hàm kiểm tra vị trí đặt con hậu có hợp lệ hay không
     Do đã quy định trong hàm update, những vị trí đặt được = 0, 
@@ -17,7 +27,7 @@ bool check(const short board[8][8], const short row, const short col) {
 }
 
 
-void update(short board[8][8], short row, short col, short sign) {
+void update(int board[8][8], int row, int col, int sign) {
     /*
     Hàm cập nhật trạng thái bàn cờ.
     Khi khởi tạo, các phần tử trong bàn cờ đều là 0.
@@ -26,7 +36,7 @@ void update(short board[8][8], short row, short col, short sign) {
     Giá trị 0 biểu thị vị trí có thể đặt được quân hậu
     Nguyên nhân:    Việc phải cập nhật quân hậu rất nhiều sẽ gây rắc rối nếu dùng boolean.
                     Nên dễ nhất là để chồng chéo vào nhau, khi cập nhật không bị ảnh hưởng.
-    Dau vao:
+    Đầu vào:
         board:  Bàn cờ muốn cập nhật
         row:    Chỉ số hàng muốn cập nhật con hậu
         col:    Chỉ số cột muốn cập nhật con hậu
@@ -41,27 +51,27 @@ void update(short board[8][8], short row, short col, short sign) {
     assert(0 <= col && col <= 7);
 
     // Khai báo chỉ số có thể xuất hiện khi tính đường chéo (-7 -> 7)
-    short poss_row, poss_col;
+    int poss_row, poss_col;
 
     // Cập nhật đường ngang dọc
-    for (short i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++) {
         board[row][i] += sign;
         board[i][col] += sign;
     }
 
     // Cập nhật đường chéo
-    for (short i = -7; i <= 7; i++) {
+    for (int i = -7; i <= 7; i++) {
         poss_row = row + i;
         poss_col = col + i;
 
         // Đường chéo chính
-        if (poss_row >= 0 && poss_row < 8 && poss_col >= 0 && poss_col < 8) {
+        if (in_bound(poss_row) && in_bound(poss_col)) {
             board[poss_row][poss_col] += sign;
         }
 
         // Đường chéo phụ
         poss_col = col - i;
-        if (poss_row >= 0 && poss_row < 8 && poss_col >= 0 && poss_col < 8) {
+        if (in_bound(poss_row) && in_bound(poss_col)) {
             board[poss_row][poss_col] += sign;
         }
     }
@@ -72,7 +82,7 @@ void update(short board[8][8], short row, short col, short sign) {
     board[row][col] -= 3 * sign;
 }
 
-bool try_col(short board[8][8], const short row, const short col, short result[8]) {
+bool try_col(int board[8][8], const int row, const int col, int result[8]) {
     if (row == 8) return true;
     if (col == 8) return false;
 
@@ -89,26 +99,30 @@ bool try_col(short board[8][8], const short row, const short col, short result[8
     return try_col(board, row, col + 1, result);
 }
 
-void solve(short board[8][8], const short start_col, short result[8]) {
-    try_col(board, 0, start_col, result);
+void solve(int board[8][8], const int start_col, int result[8]) {
+    if(try_col(board, 0, start_col, result)){
+        printf("Đã giải được bài toán");
+    } else{
+        assert(false);
+        printf("Không giải được bài toán, tìm lỗi!");
+    };
 }
 
-
-void print_board_state(const short board[8][8]) {
+void print_board_state(const int board[8][8]) {
     /*
     Hàm in trạng thái của bàn cờ
     */
-    for (short i = 0; i < 8; i++) {
-        for (short j = 0; j < 8; j++) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
             printf("%5d", board[i][j]);
         }
         printf("\n");
     }
 }
 
-void print_board_queen(const short board[8][8]){
-    for (short i = 0; i < 8; i++) {
-        for (short j = 0; j < 8; j++) {
+void print_board_queen(const int board[8][8]){
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
             if (board[i][j]==1)
                 printf("Q ");
             else
@@ -119,7 +133,7 @@ void print_board_queen(const short board[8][8]){
 }
 
 
-void print_result(short result[8]){
+void print_result(int result[8]){
     for (int i = 0; i < 8; i++){
         printf("%d ", result[i]);
     }

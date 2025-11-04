@@ -3,7 +3,7 @@
 
 int main() {
     // Khoi tao ban co de test
-    short board[8][8] = {0};
+    int board[8][8] = {0};
     print_board_state(board);
 
     // Kiem tra function check()
@@ -43,8 +43,8 @@ int main() {
 
     // Test
     printf("\nTest solution\n");
-    short result[8] = {0};
-    short puzzle[8][8] = {0};
+    int result[8] = {0};
+    int puzzle[8][8] = {0};
     solve(puzzle, 0, result);
 
     printf("\nResult\n");
