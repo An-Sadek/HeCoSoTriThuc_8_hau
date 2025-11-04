@@ -13,7 +13,7 @@ private:
     int result[8] = {0};
 
 public:
-    Solver(const int start_col);
+    Solver();
 
     void print_board_queen();
     void print_board_state();
