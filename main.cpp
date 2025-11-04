@@ -8,6 +8,7 @@ int main(int argc, char* argv[]){
         printf("Thieu vi tri dat con hau dau tien. Cach su dung: ./main {1-8}");
         return 1;
     }
+
     // |-- Chuyển string sang short bằng atoi (cstdlib)
     short start_col = std::atoi(argv[1]);
 
@@ -16,10 +17,15 @@ int main(int argc, char* argv[]){
         printf("Nhap gia tri tu 1 -> 8\n");
         return 1;
     }
+
     // |-- Chuyển thứ tự về index cho đồng bộ
     start_col--;
 
-
+    // Giải bài toán
+    Solver solver = Solver();
+    solver.solve(start_col);
+    solver.print_result();
+    solver.print_board_queen();
 
     return 0;
 }

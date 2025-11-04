@@ -37,6 +37,7 @@ void Solver::print_result(){
     for (int i = 0; i < 8; i++){
         printf("%d ", result[i]);
     }
+    printf("\n");
 }
 
 bool Solver::in_bound(const int value){
