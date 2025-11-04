@@ -9,8 +9,8 @@
 
 class Solver{
 private:
-    int board[8][8] = {0};
-    int result[8] = {0};
+    int board[8][8] = {0}; // Khởi tạo bàn cờ
+    int result[8] = {0}; // Khởi tạo kết quả
 
 public:
     Solver();

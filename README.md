@@ -68,7 +68,7 @@ Sau khi đã cài g++, biên dịch bằng lệnh `g++ -o <tên file> main.cpp _
 (pass)
 
 ## Ý tưởng giải bài toán
-Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in {0, 1}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ. 
+Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in \{0, 1\}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ. 
 
 ## Quan hệ giữa quân hậu và các hướng tấn công
 Để có thể biểu diễn ràng buộc dưới dạng toán học cần phải xác định được mối quan hệ giữa quân hậu và các hướng tấn công trong không gian 2 chiều. Ví dụ sau đây là hướng tấn công của quân hậu trên bàn cờ 5 X 5, đặt tại hàng 2, cột 2.
@@ -84,11 +84,12 @@ Trong mảng 2 chiều 8 X 8, khoảng cách tối đa mà quân hậu có thể
 ![Hướng tấn công của quân hậu về mặt toán học](imgs/Math_direction.jpg)
 
 ## Biểu diễn ràng buộc trong toán học
+<!---TODO: Viết lại --->
 Với mảng 2 chiều board đã mô tả và mối quan hệ giữa quân hậu và các hướng tấn công, ta có được ràng buộc như sau:
-- Ràng buộc hàng: Mỗi hàng chỉ được chứa 1 con hậu, hay nói cách khác tổng số quân hậu trong mỗi hàng là 1. $\sum\limits_{j=1}^{8}{board_{i,j}}=1, \forall i$
-- Ràng buộc cột: Tổng số quân hậu trong mỗi cột là 1. $\sum\limits_{i=1}^{8}{board_{i,j}}=1, \forall j$
-- Ràng buộc đường chéo chính: Vì không tính vị trí chính quân hậu được đặt nên số bước di chuyển tối đa là 7. $\sum\limits_{\substack{i=j=1}}^{8}{board_{k,l}}= 1$ , với $max(1,x-i) \leq k \leq min(8,x+i)$ , $max(1, y-j)\leq l \leq min(8,y+j)$ , $-7 \leq i = j \leq 7$.
-- Ràng buộc đường chéo phụ: Tương tự như ràng buộc đường chéo chính, nhưng l sẽ được tính theo cách khác.  $\sum\limits_{\substack{i=j=1}}^{8}{board_{k,l}}= 1$ , với $max(1,x-i) \leq k \leq min(8,x+i)$ , $max(1, 8-j)\leq l \leq min(8,8-j)$ , $-7 \leq i = j \leq 7$.
+- Ràng buộc hàng: Mỗi hàng chỉ được chứa 1 con hậu, hay nói cách khác tổng số quân hậu trong mỗi hàng là 1.
+- Ràng buộc cột: Tổng số quân hậu trong mỗi cột là 1. 
+- Ràng buộc đường chéo chính: Vì không tính vị trí chính quân hậu được đặt nên số bước di chuyển tối đa là 7. 
+- Ràng buộc đường chéo phụ: Tương tự như ràng buộc đường chéo chính, nhưng l sẽ được tính theo cách khác. 
 
 ## Hạn chế về việc biểu diễn bàn cờ trong không gian nhị phân
 Một trong những hạn chế của việc biểu diễn trong không gian nhị phân là khó diễn giải các ô có thể tấn công. Giả sử có bàn cờ 8 X 8, với 4 con hậu. Ô chứa con hậu sẽ mang giá trị 1 trong khi đó ô trống mang giá trị 0. Từ hình ảnh sau, nếu muốn xét vị trí có khả năng đặt quân hậu cần phải xét cả 4 ràng buộc như trên rất khó để diễn giải. Cặp hậu Q1 - Q3 sẽ tấn công lẫn nhau. 

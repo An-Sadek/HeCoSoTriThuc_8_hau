@@ -59,7 +59,6 @@ bool Solver::check(const int row, const int col) {
     return board[row][col] == 0;
 }
 
-
 void Solver::update(int row, int col, int sign) {
     /*
     Hàm cập nhật trạng thái bàn cờ.
@@ -70,7 +69,6 @@ void Solver::update(int row, int col, int sign) {
     Nguyên nhân:    Việc phải cập nhật quân hậu rất nhiều sẽ gây rắc rối nếu dùng boolean.
                     Nên dễ nhất là để chồng chéo vào nhau, khi cập nhật không bị ảnh hưởng.
     Đầu vào:
-        board:  Bàn cờ muốn cập nhật
         row:    Chỉ số hàng muốn cập nhật con hậu
         col:    Chỉ số cột muốn cập nhật con hậu
         sign:   Mang giá trị +1 biểu thị cho việc đặt con hậu
@@ -120,7 +118,7 @@ bool Solver::try_col(const int row, const int col) {
     if (col == 8) return false;
 
     if (check(row, col)) {
-        update(row, col, 1);
+        update(row, col, +1);
         result[row] = col;
 
         if (try_col(row + 1, 0)) return true;
@@ -136,8 +134,8 @@ void Solver::solve(const int start_col) {
     if(try_col(0, start_col)){
         printf("Đã giải được bài toán\n");
     } else{
-        assert(false);
         printf("Không giải được bài toán, tìm lỗi!\n");
+        assert(false); // Dừng để debug
     };
 }
 
