@@ -101,8 +101,8 @@ Cập nhật đối với cột: `board[i, col] += 1`
 
 ### Cập nhật chéo
 Đối với cập nhật đường chéo thì hơi phức tạp hơn. Do bàn cờ có thước 8X8, cho nên số bước tối đa mà có thể duyệt là 7. 
-Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col + i, pos_row \in \{1 .. 8\}, pos_col \in \{1 .. 8\}$
-Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col - i, pos_row \in \{1 .. 8\}, pos_col \in \{1 .. 8\}$
+Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col + i, pos\_row \in {1 .. 8}, pos\_col \in {1 .. 8}$
+Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col - i, pos\_row \in {1 .. 8}, pos\_col \in {1 .. 8}$
 
 
 
