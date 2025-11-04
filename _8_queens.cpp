@@ -72,51 +72,55 @@ void update(short board[8][8], short row, short col, short sign) {
     board[row][col] -= 3 * sign;
 }
 
-
-bool solve(short board[8][8], short row, short col, short result[8]) {
+bool try_col(short board[8][8], const short row, const short col, short result[8]) {
     if (row == 8) return true;
-    if (col == 8) return solve(board, row+1, 0, result);
+    if (col == 8) return false;
 
-    if (check(board, row, col)){
+    if (check(board, row, col)) {
+        update(board, row, col, 1);
         result[row] = col;
 
-        if (solve(board, row+1, 0, result)){
-            return true;
-        }
+        if (try_col(board, row + 1, 0, result)) return true;
 
-        result[row] = 0;
+        update(board, row, col, -1);
+        result[row] = -1;
     }
 
-    return solve(board, row, col+1, result);
+    return try_col(board, row, col + 1, result);
+}
+
+void solve(short board[8][8], const short start_col, short result[8]) {
+    try_col(board, 0, start_col, result);
 }
 
 
-void print_board(const short board[8][8]) {
+void print_board_state(const short board[8][8]) {
     /*
     Hàm in trạng thái của bàn cờ
     */
     for (short i = 0; i < 8; i++) {
         for (short j = 0; j < 8; j++) {
-            printf("%2d\t", board[i][j]);
+            printf("%5d", board[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void print_board_queen(const short board[8][8]){
+    for (short i = 0; i < 8; i++) {
+        for (short j = 0; j < 8; j++) {
+            if (board[i][j]==1)
+                printf("Q ");
+            else
+                printf(". ");
         }
         printf("\n");
     }
 }
 
 
-void print_board(const short result[8]) {
-    /*
-    In vị trí các quân hậu trong bàn cờ 8x8
-        Đầu vào:
-            result: Mảng kết quả, đặt con hậu tại cột result[i] ở hàng i
-    */
-    for (short i = 0; i < 8; i++) {
-        for (short j = 0; j < 8; j++) {
-            if (result[i] == j)
-                printf("Q ");
-            else
-                printf(". ");
-        }
-        printf("\n");
+void print_result(short result[8]){
+    for (int i = 0; i < 8; i++){
+        printf("%d ", result[i]);
     }
 }

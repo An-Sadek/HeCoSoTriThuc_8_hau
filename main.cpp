@@ -19,13 +19,7 @@ int main(int argc, char* argv[]){
     // |-- Chuyển thứ tự về index cho đồng bộ
     start_col--;
 
-    // Khởi tạo bàn cờ
-    short board[8][8] = {0};
 
-    // Khởi tạo mảng kết quả
-    short* result = (short*)malloc(8 * sizeof(short)); // Phân bổ bộ nhớ
-
-  
 
     return 0;
 }

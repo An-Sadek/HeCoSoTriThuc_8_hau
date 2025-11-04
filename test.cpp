@@ -4,7 +4,7 @@
 int main() {
     // Khoi tao ban co de test
     short board[8][8] = {0};
-    print_board(board);
+    print_board_state(board);
 
     // Kiem tra function check()
     bool isValid1 = check(board, 0, 0);
@@ -13,12 +13,12 @@ int main() {
     // Kiem tra update (+) 
     update(board, 5, 5, 1);
     printf("\nUpdate(5,5,1):\n");
-    print_board(board);
+    print_board_state(board);
 
     // Kiem tra update (-) 
     update(board, 5, 5, -1);
     printf("\nUpdate(5,5,-1):\n");
-    print_board(board);
+    print_board_state(board);
 
     // Test check for row 2
     printf("Check(board, 2, i): ");
@@ -31,7 +31,7 @@ int main() {
     // Kiem tra update (-) lan 2
     update(board, 1, 2, -1);
     printf("Update(1,2,-1):\n");
-    print_board(board);
+    print_board_state(board);
 
     // Kiem tra ham check sau khi cap nhat
     printf("Check(board, 2, i): ");
@@ -41,22 +41,16 @@ int main() {
     }
     printf("\n\n");
 
-    // Test solve
-    short board_puzzle[8][8] = {0};
-    short* result = (short*)malloc(8 * sizeof(short));
-    result = solve(board_puzzle, 1);
+    // Test
+    printf("\nTest solution\n");
+    short result[8] = {0};
+    short puzzle[8][8] = {0};
+    solve(puzzle, 0, result);
 
-    for(short i = 0; i < 8; i++){
-        printf("%d ", result[i]);
-    }
-    printf("\n");
+    printf("\nResult\n");
+    print_result(result);
+    printf("\nBoard\n");
+    print_board_queen(puzzle);
 
-    short puzzle_example[8][8] = {0};
-    update(puzzle_example, 0, 1, -1);
-    update(puzzle_example, 3, 4, -1);
-
-    print_board(puzzle_example);
-
-    free(result);
     return 0;
 }
