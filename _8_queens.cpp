@@ -133,7 +133,7 @@ void print_board_queen(const int board[8][8]){
 }
 
 
-void print_result(int result[8]){
+void print_result(const int result[8]){
     for (int i = 0; i < 8; i++){
         printf("%d ", result[i]);
     }
