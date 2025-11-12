@@ -120,122 +120,36 @@ Luật được viết sau đây sẽ dựa trên code thay vì lý thuyết, t�
 
 ## Hàm inbound
 R1:<br>
-```
-IF  0 <= Value <= 7
-THEN in_bound(Value) <- true
-```
-
-R2:<br>
-```
-IF NOT(0 <= Value <= 7)
-THEN in_bound(Value) <- false
-```
+IF $0 \leq value \leq 7$<br>
+THEN in_bound(value) <- true
 
 ## Hàm check
-R3:<br>
-```
-IF board[row][col] = 0
+R2:<br>
+IF board[row][col] = 0<br>
 THEN check(row, col) <- true
-```
-
-R4:<br>
-```
-IF board[row][col] != 0
-THEN check(row, col) <- false
-```
 
 ## Hàm update
-R5:<br>
-```
-IF  update(row, col, sign) được gọi
-    AND sign = +1 OR sign = -1
-THEN FOR i <- 0 TO 7
-     board[row][i] <- board[row][i] + sign
-     board[i][col] <- board[i][col] + sign
-```
+R3:<br>
+board[row][col] <- board[row][col] -  3*sign
+$\forall i \in \{1..8\}$<br>
+board[row][i] <- board[row][i] + sign<br>
+board[i][col] <- board[i][col] + sign
 
-R6:<br>
-```
-IF  hàm update(row, col, sign) được gọi
-    AND sign = +1 OR sign = -1
-THEN FOR i <- -7 TO 7
-     poss_row <- row + i
+R4:<br>
+$\forall i \in \{-7..7\}$<br>
+poss_row <- row + i<br>
 
-     poss_col <- col + i
-     IF in_bound(poss_row) = true
-        AND in_bound(poss_col) = true
-     THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign
+poss_col <- col + i<br>
+IF  in_bound(poss_row)<br>
+    AND in_bound(poss_col)<br>
+THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign<br>
 
-     poss_col <- col - i
-     IF in_bound(poss_row) = true
-        AND in_bound(poss_col) = true
-     THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign
-```
+poss_col <- col - i<br>
+IF  in_bound(poss_row)<br>
+    AND in_bound(poss_col)<br>
+THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign<br>
 
-R7:<br>
-```
-IF  hàm update(row, col, sign) được gọi
-    AND sign = +1 OR sign = -1
-THEN board[row][col] <- board[row][col] - 3*sign
-```
 
-## Hàm backtrack
-R8:<br>
-```
-IF count = 8
-THEN try_col(row, col, count) <- true
-```
-
-R9:<br>
-```
-IF col = 8
-THEN try_col(row, col, count) <- false
-```
-
-R10:<br>
-```
-IF check(row, col) = true
-THEN gọi hàm update(row, col, +1)
-     count <- count + 1
-
-     IF try_col(row + 1, 0, count) = true
-     THEN try_col(row, col, count) <- true
-
-     IF try_col(row + 1, 0, count) = false
-     THEN gọi hàm update(row, col, -1)
-          AND count <- count - 1
-```
-
-R11:<br>
-```
-IF check(row, col) = false
-THEN trả về try_col(row, col+1, count)
-```
-
-## Kiểm tra input người dùng
-R12:<br>
-```
-IF  1 <= start_row <= 8
-    AND 1 <= start_col <= 8
-THEN start_pos <- {start_row-1, start_col-1}
-```
-
-R13:<br>
-```
-IF NOT(
-    1 <= start_row <= 8
-    AND 1 <= start_col <= 8
-)
-THEN Dừng chương trình
-     AND Thông báo lỗi
-```
-
-## Hàm solve
-R14:<br>
-```
-IF  gọi hàm try_col(start_pos) = true
-THEN in kết quả
-```
 
 
 

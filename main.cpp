@@ -5,7 +5,7 @@ int main(int argc, char* argv[]){
     // Đọc input từ người dùng
     // |-- Kiểm tra thiếu argument
     if(argc < 3){
-        printf("Thieu vi tri dat con hau dau tien. Cach su dung: ./main {x} {y}");
+        printf("Thieu vi tri dat con hau dau tien. Cach su dung: ./main {x} {y}\n");
         return 1;
     }
 
