@@ -137,7 +137,7 @@ void Solver::update(const int row, const int col, int sign) {
     board[row][col] -= 3 * sign;
 }
 
-bool Solver::try_col(int row, const int col, int count){
+bool Solver::try_col(int row, int col, int count){
     /*
     Hàm dùng để backtrack, thay vì sử dụng for loop thì sử dụng try_col.
     Đầu vào:
@@ -147,26 +147,32 @@ bool Solver::try_col(int row, const int col, int count){
                 trả về kết quả true.
 
     */
-    row = row % 8; // Chia lấy phần nguyên mang về giá trị [0, 7]
     if (count == 8) return true; // Count đặt 8 quay về hàng đầu tiên
     if (col >= 8) return false; // Backtrack
 
     // Nếu vị trí hợp lệ thì update, count+1 và tiếp sang hàng tiếp theo
+    row = row % 8; // Chia lấy phần nguyên mang về giá trị [0, 7]
     if (check(row, col)){
-        update(row, col, +1);
+        int sign = +1;
+        update(row, col, sign);
         count++;
 
-        if (try_col(row + 1, 0, count)){
+        // Sang hàng tiếp theo
+        row++;
+        if (try_col(row, 0, count)){
             return true;
         }
 
         // Backtrack
-        update(row, col, -1);
+        row--; // Trừ lại row đã + ở trên
+        sign = -1;
+        update(row, col, sign);
         count--;
     }
 
     // Đi đến cột tiếp theo nếu không tìm được vị trí phù hợp
-    return try_col(row, col+1, count);
+    col++;
+    return try_col(row, col, count);
 }
 
 void Solver::solve(const int start_pos[2]) {
