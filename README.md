@@ -152,8 +152,8 @@ THEN check(row, col) <- false
 R5:<br>
 ```
 IF  update(row, col, sign) được gọi
-    AND sign $\in$ {-1, +1}
-THEN $\forall$ i $\in$ {0..7}
+    AND sign = +1 OR sign = -1
+THEN FOR i <- 0 TO 7
      board[row][i] <- board[row][i] + sign
      board[i][col] <- board[i][col] + sign
 ```
@@ -161,8 +161,8 @@ THEN $\forall$ i $\in$ {0..7}
 R6:<br>
 ```
 IF  hàm update(row, col, sign) được gọi
-    AND sign $\in$ {-1, +1}
-THEN $\forall$ i $\in$ {-7..7}
+    AND sign = +1 OR sign = -1
+THEN FOR i <- -7 TO 7
      poss_row <- row + i
 
      poss_col <- col + i
