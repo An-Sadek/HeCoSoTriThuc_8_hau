@@ -7,9 +7,25 @@ void Solver::print_board_state() {
     /*
     In trạng thái của bàn cờ
     */
+    // In các vị trí cột
+    printf("   ");
+    for (int i = 0; i <= 7; i++){
+        printf("%d  ", i+1);
+    }
+    printf("\n");
+
+    // In đường kẻ
+    printf("  ");
+    for (int i = 0; i <= 7; i++){
+        printf("___");
+    }
+    printf("\n");
+
     for (int i = 0; i <= 7; i++) {
+        printf("%d| ", i+1);
+
         for (int j = 0; j <= 7; j++) {
-            printf("%5d", board[i][j]);
+            printf("%d  ", board[i][j]);
         }
         printf("\n");
     }
@@ -19,10 +35,19 @@ void Solver::print_board_queen(const int start_pos[2]){
     /*
     In bàn cờ dưới dạng quân hậu
     */
+    // In các vị trí cột
+    printf("  ");
+    for (int i = 0; i <= 7; i++){
+        printf("%d ", i+1);
+    }
+    printf("\n");
+
     for (int i = 0; i <= 7; i++) {
+        printf("%d ", i+1); // In vị trí hàng
+
         for (int j = 0; j <= 7; j++) {
             if (i == start_pos[0] && j == start_pos[1]){
-                printf("1 ");
+                printf("X ");
                 continue;
             }
 
@@ -58,7 +83,7 @@ bool Solver::check(const int row, const int col) {
     return board[row][col] == 0;
 }
 
-void Solver::update(int row, int col, int sign) {
+void Solver::update(const int row, const int col, int sign) {
     /*
     Hàm cập nhật trạng thái bàn cờ.
     Khi khởi tạo, các phần tử trong bàn cờ đều là 0.

@@ -31,8 +31,9 @@ int main(int argc, char* argv[]){
 
     Solver solver = Solver();
     solver.solve(start_pos);
-    solver.print_board_queen(start_pos);
     solver.print_board_state();
+    printf("\n");
+    solver.print_board_queen(start_pos);
 
     return 0;
 }

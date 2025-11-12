@@ -7,7 +7,9 @@
 6. [Mô tả bài toán](#mô-tả-bài-toán)
 7. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
     1. [Quan hệ giữa quân hậu và các hướng tấn công](#quan-hệ-giữa-quân-hậu-và-các-hướng-tấn-công)
-    2. [Biểu diễn ràng buộc trong toán học](#biểu-diễn-ràng-buộc-trong-toán-học)
+    2. [Biểu diễn bàn cờ trong không gian số nguyên](#biểu-diễn-bàn-cờ-trong-không-gian-số-nguyên)
+    3. [Cập nhật bàn cờ trong không gian số nguyên và ràng buộc](#cập-nhật-bàn-cờ-trong-không-gian-số-nguyên-và-ràng-buộc)
+8. [Luật]
 
 
 # Giới thiệu nhóm
@@ -68,11 +70,11 @@ Chạy chương trình<br>
 # Mô tả bài toán
 (pass)
 
-## Ý tưởng giải bài toán
+# Ý tưởng giải bài toán
 Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in \{0, 1\}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ. 
 
 ## Quan hệ giữa quân hậu và các hướng tấn công
-Để có thể biểu diễn ràng buộc dưới dạng toán học cần phải xác định được mối quan hệ giữa quân hậu và các hướng tấn công trong không gian 2 chiều. Ví dụ sau đây là hướng tấn công của quân hậu trên bàn cờ 5 X 5, đặt tại hàng 2, cột 2.
+Để có thể biểu diễn ràng buộc cần phải xác định được mối quan hệ giữa quân hậu và các hướng tấn công trong không gian 2 chiều. Ví dụ sau đây là hướng tấn công của quân hậu trên bàn cờ 5 X 5, đặt tại hàng 2, cột 2.
 ![Hướng tấn công của quân hậu](imgs/Normal_direction.jpg)
 
 Col sẽ mang chiều dương khi sang bên phải và row sẽ mang chiều dương khi tiến xuống dưới. Giả sử xem Q tại vị trí (x, y) là trung tâm và có khả năng tấn công tại vị trí A(a, b), thì Q có mối quan hệ với các hướng tấn công như sau:
@@ -95,7 +97,7 @@ Một trong những hạn chế của việc biểu diễn trong không gian nh�
 ![Hướng tấn công của 2 quân hậu Q1 và Q3](imgs/Q1Q3_direction.jpg)
 
 ## Cập nhật bàn cờ trong không gian số nguyên và ràng buộc
-Nếu sử dụng không gian số nguyên thì chính trạng thái bàn cờ là ràng buộc và cũng là kết quả của bài toán. Cộng/trừ các hàng, cột, đường chéo đại diện cho việc đặt hoặc gỡ quân hậu. Trong đề tài này sẽ sử dụng (+) để biểu thị việc đặt quân hậu. Giả sử có bàn cờ 8X8, con hậu tại vị trí (4, 5). Những vị trí biểu thị (+1) là bị con hậu Q tấn công, những vị trí còn lại đều đặt được. Nếu gỡ quân hậu thì chỉ cần -1 lại.
+Nếu sử dụng không gian số nguyên thì chính trạng thái bàn cờ là ràng buộc và cũng là kết quả của bài toán. Cộng/trừ các hàng, cột, đường chéo đại diện cho việc đặt hoặc gỡ quân hậu. Trong đề tài này sẽ sử dụng (+) để biểu thị việc đặt quân hậu. Giả sử có bàn cờ 8X8, con hậu tại vị trí (4, 5). Những vị trí biểu thị (+1) là bị con hậu Q tấn công, những vị trí còn lại đều đặt được. Nếu gỡ quân hậu thì chỉ cần -1 lại. Do quân hậu được cập nhật 4 lần, nên cần trừ 3 hoặc là bỏ qua cập nhật vị trí trung tâm. Như hình sau, vị trí quân hậu Q sẽ mang giá trị 4.
 !["Các vị trí tấn công của Q trên bàn cờ 5X5"](imgs/Queen_Update_8X8.jpg)
 
 ### Cập nhật hàng, cột
@@ -108,6 +110,114 @@ Cập nhật đối với cột: `board[i, col] += 1`
 Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col + i, pos\_row \in {1 .. 8}, pos\_col \in {1 .. 8}$
 Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col - i, pos\_row \in {1 .. 8}, pos\_col \in {1 .. 8}$
 
+### Kiểm tra vị trí đặt quân hậu
+Sau khi cập nhật trạng thái chỉ cần kiểm tra vị trí đó có mang giá trị 0 (không bị tấn công) hay không. `board[row][col] == 0`.
+
+# Luật dẫn
+Luật được viết sau đây sẽ dựa trên code thay vì lý thuyết, tức là sẽ dùng chỉ số (0 -> 7).
+
+## Kiểm tra input người dùng
+R1:<br>
+IF  start_row $\not \in$ {1..8}
+    AND start_row $\not \in$ {1..8}
+THEN dừng chương trình
+
+### Hàm inbound
+R2:<br>
+IF  Value $\in [0, 7]$
+THEN in_bound(Value) <- true
+
+R3:<br>
+IF Value $\in (-\infty, 0) \cup (8, +\infty)$
+THEN in_bound(Value) <- false
+
+### Hàm check
+R4:<br>
+```
+IF board[row][col] = 0
+THEN check(row, col) <- true
+```
+
+R5:<br>
+```
+IF board[row][col] != 0
+THEN check(row, col) <- false
+```
+
+### Hàm update
+R6:<br>
+```
+IF  update(row, col, sign) được gọi
+    AND sign $\in$ {-1, +1}
+THEN $\forall$ i $\in$ {0..7}
+     board[row][i] <- board[row][i] + sign
+     board[i][col] <- board[i][col] + sign
+```
+
+R7:<br>
+```
+IF  hàm update(row, col, sign) được gọi
+    AND sign $\in$ {-1, +1}
+THEN $\forall$ i $\in$ {-7..7}
+     poss_row <- row + i
+
+     poss_col <- col + i
+     IF in_bound(poss_row) = true
+        AND in_bound(poss_col) = true
+     THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign
+
+     poss_col <- col - i
+     IF in_bound(poss_row) = true
+        AND in_bound(poss_col) = true
+     THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign
+```
+
+R8:<br>
+```
+IF  hàm update(row, col, sign) được gọi
+    AND sign $\in$ {-1, +1}
+THEN board[row][col] <- board[row][col] - 3*sign
+```
+
+### Hàm backtrack
+R9:<br>
+```
+IF count = 8
+THEN try_col(row, col, count) <- true
+```
+
+R10:<br>
+```
+IF col = 8
+THEN try_col(row, col, count) <- false
+```
+
+R11:<br>
+```
+IF check(row, col) = true
+THEN gọi hàm update(row, col, +1)
+     count <- count + 1
+
+     IF try_col(row + 1, 0, count) = true
+     THEN try_col(row, col, count) <- true
+
+     IF try_col(row + 1, 0, count) = false
+     THEN gọi hàm update(row, col, -1)
+          AND count <- count - 1
+```
+
+R12:<br>
+```
+IF check(row, col) = false
+THEN trả về try_col(row, col+1, count)
+```
+
+### Hàm solve
+R13:<br>
+```
+IF  gọi hàm try_col(start_pos) = true
+THEN in kết quả
+```
 
 
 
