@@ -149,8 +149,13 @@ IF  in_bound(poss_row)<br>
     AND in_bound(poss_col)<br>
 THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + sign<br>
 
+**R6:**<br>
+IF check(row, col) = true<br>
+THEN sign = +1
 
-
+**R7:**<br>
+IF check(row, col) = false<br>
+THEN sign = -1
 
 
 
