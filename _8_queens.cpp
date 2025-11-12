@@ -178,6 +178,9 @@ bool Solver::try_col(int row, int col, int count){
 void Solver::solve(const int start_pos[2]) {
     if (try_col(start_pos[0], start_pos[1], 0)){
         printf("Đã giải được bài toán\n");
+        print_board_state();
+        printf("\n");
+        print_board_queen(start_pos);
     } else{
         printf("Không giải được bài toán, tìm lỗi!\n");
         assert(false); // Dừng để debug
