@@ -9,7 +9,13 @@
     1. [Quan hệ giữa quân hậu và các hướng tấn công](#quan-hệ-giữa-quân-hậu-và-các-hướng-tấn-công)
     2. [Biểu diễn bàn cờ trong không gian số nguyên](#biểu-diễn-bàn-cờ-trong-không-gian-số-nguyên)
     3. [Cập nhật bàn cờ trong không gian số nguyên và ràng buộc](#cập-nhật-bàn-cờ-trong-không-gian-số-nguyên-và-ràng-buộc)
-8. [Luật]
+8. [Luật dẫn](#luật-dẫn)
+    1. [Hàm in_bound](#hàm-inbound)
+    2. [Hàm check](#hàm-check)
+    3. [Hàm update](#hàm-update)
+    4. [Hàm backtrack](#hàm-backtrack)
+    5. [Kiểm tra input người dùng](#kiểm-tra-input-người-dùng)
+    6. [Hàm solve](#hàm-solve)
 
 
 # Giới thiệu nhóm
@@ -116,7 +122,7 @@ Sau khi cập nhật trạng thái chỉ cần kiểm tra vị trí đó có man
 # Luật dẫn
 Luật được viết sau đây sẽ dựa trên code thay vì lý thuyết, tức là sẽ dùng chỉ số (0 -> 7).
 
-### Hàm inbound
+## Hàm inbound
 R1:<br>
 ```
 IF  0 <= Value <= 7
@@ -129,7 +135,7 @@ IF NOT(0 <= Value <= 7)
 THEN in_bound(Value) <- false
 ```
 
-### Hàm check
+## Hàm check
 R3:<br>
 ```
 IF board[row][col] = 0
@@ -142,7 +148,7 @@ IF board[row][col] != 0
 THEN check(row, col) <- false
 ```
 
-### Hàm update
+## Hàm update
 R5:<br>
 ```
 IF  update(row, col, sign) được gọi
@@ -177,7 +183,7 @@ IF  hàm update(row, col, sign) được gọi
 THEN board[row][col] <- board[row][col] - 3*sign
 ```
 
-### Hàm backtrack
+## Hàm backtrack
 R8:<br>
 ```
 IF count = 8
@@ -227,7 +233,7 @@ IF NOT(
 THEN Dừng chương trình
 ```
 
-### Hàm solve
+## Hàm solve
 R14:<br>
 ```
 IF  gọi hàm try_col(start_pos) = true
