@@ -119,35 +119,35 @@ Sau khi cập nhật trạng thái chỉ cần kiểm tra vị trí đó có man
 Luật được viết sau đây sẽ dựa trên code thay vì lý thuyết, tức là sẽ dùng chỉ số (0 -> 7).
 
 ## Hàm inbound
-R1:<br>
+**R1**:<br>
 IF $0 \leq value \leq 7$<br>
 THEN in_bound(value) <- true
 
 ## Hàm check
-R2:<br>
+**R2**:<br>
 IF board[row][col] = 0<br>
 THEN check(row, col) <- true
 
 ## Hàm update
-R3:<br>
-board[row][col] <- board[row][col] -  3*sign
-$\forall i \in \{1..8\}$<br>
+**R3**:<br>
+board[row][col] <- board[row][col] -  3*sign<br>
+$\forall i \in \lbrace 1..8 \rbrace$<br>
 board[row][i] <- board[row][i] + sign<br>
 board[i][col] <- board[i][col] + sign
 
-R4:<br>
-$\forall i \in \{-7..7\}$<br>
+**R4**:<br>
+$\forall i \in \lbrace -7..7 \rbrace$<br>
 poss_row <- row + i<br>
 
 poss_col <- col + i<br>
 IF  in_bound(poss_row)<br>
     AND in_bound(poss_col)<br>
-THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign<br>
+THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + sign<br>
 
 poss_col <- col - i<br>
 IF  in_bound(poss_row)<br>
     AND in_bound(poss_col)<br>
-THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign<br>
+THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + sign<br>
 
 
 
