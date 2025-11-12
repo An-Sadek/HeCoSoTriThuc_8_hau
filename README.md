@@ -1,15 +1,14 @@
 # Mục lục
 1. [Giới thiệu nhóm](#giới-thiệu-nhóm)
-2. [Giới thiệu đề tài](#giới-thiệu-đề-tài)
-3. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
-4. [Thư viện sử dụng](#thư-viện-sử-dụng)
-5. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
-6. [Mô tả bài toán](#mô-tả-bài-toán)
-7. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
+2. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+3. [Thư viện sử dụng](#thư-viện-sử-dụng)
+4. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
+5. [Mô tả bài toán](#mô-tả-bài-toán)
+6. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
     1. [Quan hệ giữa quân hậu và các hướng tấn công](#quan-hệ-giữa-quân-hậu-và-các-hướng-tấn-công)
     2. [Biểu diễn bàn cờ trong không gian số nguyên](#biểu-diễn-bàn-cờ-trong-không-gian-số-nguyên)
     3. [Cập nhật bàn cờ trong không gian số nguyên và ràng buộc](#cập-nhật-bàn-cờ-trong-không-gian-số-nguyên-và-ràng-buộc)
-8. [Luật dẫn](#luật-dẫn)
+7. [Luật dẫn](#luật-dẫn)
     1. [Hàm in_bound](#hàm-inbound)
     2. [Hàm check](#hàm-check)
     3. [Hàm update](#hàm-update)
@@ -31,9 +30,6 @@ Danh sách thành viên:
 | 4     | Nguyễn Việt Khánh     | KHDL2211017   |               |
 | 5     | Phạm Hữu Nhân         | KHDL2211015   |               |
 
-
-# Giới thiệu đề tài
-(pass)
 
 # Cấu trúc thư mục
 <span>
@@ -179,7 +175,7 @@ THEN FOR i <- -7 TO 7
 R7:<br>
 ```
 IF  hàm update(row, col, sign) được gọi
-    AND sign $\in$ {-1, +1}
+    AND sign = +1 OR sign = -1
 THEN board[row][col] <- board[row][col] - 3*sign
 ```
 
@@ -231,6 +227,7 @@ IF NOT(
     AND 1 <= start_col <= 8
 )
 THEN Dừng chương trình
+     AND Thông báo lỗi
 ```
 
 ## Hàm solve
