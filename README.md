@@ -116,36 +116,34 @@ Sau khi cập nhật trạng thái chỉ cần kiểm tra vị trí đó có man
 # Luật dẫn
 Luật được viết sau đây sẽ dựa trên code thay vì lý thuyết, tức là sẽ dùng chỉ số (0 -> 7).
 
-## Kiểm tra input người dùng
-R1:<br>
-IF  start_row $\not \in$ {1..8}
-    AND start_row $\not \in$ {1..8}
-THEN dừng chương trình
-
 ### Hàm inbound
-R2:<br>
-IF  Value $\in [0, 7]$
+R1:<br>
+```
+IF  0 <= Value <= 7
 THEN in_bound(Value) <- true
+```
 
-R3:<br>
-IF Value $\in (-\infty, 0) \cup (8, +\infty)$
+R2:<br>
+```
+IF NOT(0 <= Value <= 7)
 THEN in_bound(Value) <- false
+```
 
 ### Hàm check
-R4:<br>
+R3:<br>
 ```
 IF board[row][col] = 0
 THEN check(row, col) <- true
 ```
 
-R5:<br>
+R4:<br>
 ```
 IF board[row][col] != 0
 THEN check(row, col) <- false
 ```
 
 ### Hàm update
-R6:<br>
+R5:<br>
 ```
 IF  update(row, col, sign) được gọi
     AND sign $\in$ {-1, +1}
@@ -154,7 +152,7 @@ THEN $\forall$ i $\in$ {0..7}
      board[i][col] <- board[i][col] + sign
 ```
 
-R7:<br>
+R6:<br>
 ```
 IF  hàm update(row, col, sign) được gọi
     AND sign $\in$ {-1, +1}
@@ -172,7 +170,7 @@ THEN $\forall$ i $\in$ {-7..7}
      THEN board[poss_row][poss_col] = board[poss_row][poss_col] + sign
 ```
 
-R8:<br>
+R7:<br>
 ```
 IF  hàm update(row, col, sign) được gọi
     AND sign $\in$ {-1, +1}
@@ -180,19 +178,19 @@ THEN board[row][col] <- board[row][col] - 3*sign
 ```
 
 ### Hàm backtrack
-R9:<br>
+R8:<br>
 ```
 IF count = 8
 THEN try_col(row, col, count) <- true
 ```
 
-R10:<br>
+R9:<br>
 ```
 IF col = 8
 THEN try_col(row, col, count) <- false
 ```
 
-R11:<br>
+R10:<br>
 ```
 IF check(row, col) = true
 THEN gọi hàm update(row, col, +1)
@@ -206,14 +204,31 @@ THEN gọi hàm update(row, col, +1)
           AND count <- count - 1
 ```
 
-R12:<br>
+R11:<br>
 ```
 IF check(row, col) = false
 THEN trả về try_col(row, col+1, count)
 ```
 
-### Hàm solve
+## Kiểm tra input người dùng
+R12:<br>
+```
+IF  1 <= start_row <= 8
+    AND 1 <= start_col <= 8
+THEN start_pos <- {start_row-1, start_col-1}
+```
+
 R13:<br>
+```
+IF NOT(
+    1 <= start_row <= 8
+    AND 1 <= start_col <= 8
+)
+THEN Dừng chương trình
+```
+
+### Hàm solve
+R14:<br>
 ```
 IF  gọi hàm try_col(start_pos) = true
 THEN in kết quả
