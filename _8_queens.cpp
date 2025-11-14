@@ -151,7 +151,7 @@ bool Solver::try_col(int row, int col, int count){
     if (col >= 8) return false; // Backtrack
 
     // Nếu vị trí hợp lệ thì update, count+1 và tiếp sang hàng tiếp theo
-    row = row % 8; // Chia lấy phần nguyên mang về giá trị [0, 7]
+    row = (row + 8) % 8; // Chia lấy phần nguyên mang về giá trị [0, 7]
     if (check(row, col)){
         int sign = +1;
         update(row, col, sign);
@@ -186,4 +186,3 @@ void Solver::solve(const int start_pos[2]) {
         assert(false); // Dừng để debug
     };
 }
-
