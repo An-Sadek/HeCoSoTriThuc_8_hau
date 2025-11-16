@@ -132,37 +132,34 @@ THEN check(row, col) <- true
 **R3**:<br>
 IF check(row, col) = True<br>
 THEN
-    $\forall k \in \lbrace 0..7 \rbrace$
-    board[row][k] <- board[row][k] + 1
-    board[k][col] <- board[k][col] + 1
-
-    AND $\forall i,j \in \lbrace -7..7 \rbrace$
-        poss_row <- row + i
-        poss_col <- col + i
-        IF in_bound(poss_row) AND in_bound(poss_col)
-            THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1
-            poss_col <- col - i
-        IF in_bound(poss_row) AND in_bound(poss_col)
-            THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1
-
-    AND row <- row + 1
-        IF try_col(row, 0, count) = True
+    $\forall k \in \lbrace 0..7 \rbrace$<br>
+    board[row][k] <- board[row][k] + 1<br>
+    board[k][col] <- board[k][col] + 1<br>
+    AND $\forall i,j \in \lbrace -7..7 \rbrace$<br>
+        poss_row <- row + i<br>
+        poss_col <- col + i<br>
+        IF in_bound(poss_row) AND in_bound(poss_col)<br>
+            THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
+            poss_col <- col - i<br>
+        IF in_bound(poss_row) AND in_bound(poss_col)<br>
+            THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
+    AND row <- row + 1<br>
+        IF try_col(row, 0, count) = True<br>
             THEN try_col(row, col, count) <- True
 
 **R4**<br>
-IF check(row, col) = True
-AND try_col(row, 0, count) = False
-THEN
-    $\forall k \in \lbrace 0..7 \rbrace$
-    board[row][k] <- board[row][k] - 1
-    board[k][col] <- board[k][col] - 1
-
-    AND $\forall i,j \in \lbrace -7..7 \rbrace$
-            poss_row <- row + i
-            poss_col <- col + i
-            IF in_bound(poss_row) AND in_bound(poss_col)
-                THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1
-                poss_col <- col - i
-            IF in_bound(poss_row) AND in_bound(poss_col)
+IF check(row, col) = True<br>
+AND try_col(row, 0, count) = False<br>
+THEN<br>
+    $\forall k \in \lbrace 0..7 \rbrace$<br>
+    board[row][k] <- board[row][k] - 1<br>
+    board[k][col] <- board[k][col] - 1<br>
+    AND $\forall i,j \in \lbrace -7..7 \rbrace$<br>
+            poss_row <- row + i<br>
+            poss_col <- col + i<br>
+            IF in_bound(poss_row) AND in_bound(poss_col)<br>
+                THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1<br>
+                poss_col <- col - i<br>
+            IF in_bound(poss_row) AND in_bound(poss_col)<br>
                 THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1
 
