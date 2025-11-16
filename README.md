@@ -140,7 +140,7 @@ THEN
     $\qquad$ $\qquad$ poss_col <- col + i<br>
     $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
     $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
-    $\qquad$ $\qquad$ $\qquad$ poss_col <- col - i<br>
+    $\qquad$ $\qquad$ poss_col <- col - i<br>
     $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
     $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
 
@@ -156,7 +156,7 @@ $\qquad$ $\qquad$ poss_row <- row + i<br>
 $\qquad$ $\qquad$ poss_col <- col + i<br>
 $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
 $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1<br>
-$\qquad$ $\qquad$ $\qquad$ poss_col <- col - i<br>
+$\qquad$ $\qquad$ poss_col <- col - i<br>
 $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
 $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1
 
