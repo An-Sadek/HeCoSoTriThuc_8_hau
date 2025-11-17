@@ -165,17 +165,17 @@ $\qquad$ board[poss_row][poss_col] <- board[poss_row][poss_col] + 3
 ## Hàm backtrack
 **R5:** Luật chiến thắng<br>
 IF count = 8<br>
-THEN try_col(row, col, count) <- True
+$\qquad$ THEN try_col(row, col, count) <- True
 
-**R6:** Luật quay lui
+**R6:** Luật quay lui<br>
 IF col = 8<br>
-THEN try_col(row, col, count) <- False
+$\qquad$ THEN try_col(row, col, count) <- False
 
-**R7:** Luật xét cột tiếp theo
+**R7:** Luật xét cột tiếp theo<br>
 IF check(row, col) = False<br>
-THEN try_col(row, col, count) <- try_col(row, col+1, count)
+$\qquad$ THEN try_col(row, col, count) <- try_col(row, col+1, count)
 
-**R8:** Luật xét hàng tiếp theo nếu đặt được
+**R8:** Luật xét hàng tiếp theo nếu đặt được<br>
 IF check(row, col) = False<br>
 AND IF try(row+1, 0, count) = True<br>
 $\qquad$ THEN  try(row, col, count) <- True
