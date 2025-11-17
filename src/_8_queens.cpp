@@ -1,4 +1,4 @@
-#include "_8_queens.h"
+#include <_8_queens.h>
 
 
 Solver::Solver(){}
