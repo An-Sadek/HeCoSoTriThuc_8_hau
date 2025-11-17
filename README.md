@@ -73,7 +73,7 @@ Chạy chương trình<br>
 (pass)
 
 # Ý tưởng giải bài toán
-Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in \{0, 1\}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ. 
+Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in \{0, 1\}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ.
 
 ## Quan hệ giữa quân hậu và các hướng tấn công
 Để có thể biểu diễn ràng buộc cần phải xác định được mối quan hệ giữa quân hậu và các hướng tấn công trong không gian 2 chiều. Ví dụ sau đây là hướng tấn công của quân hậu trên bàn cờ 5 X 5, đặt tại hàng 2, cột 2.
@@ -89,7 +89,7 @@ Trong mảng 2 chiều 8 X 8, khoảng cách tối đa mà quân hậu có thể
 ![Hướng tấn công của quân hậu về mặt toán học](imgs/Math_direction.jpg)
 
 ## Biểu diễn bàn cờ trong không gian số nguyên
-Một trong những hạn chế của việc biểu diễn trong không gian nhị phân là khó diễn giải các ô có thể tấn công. Giả sử có bàn cờ 8 X 8, với 4 con hậu. Ô chứa con hậu sẽ mang giá trị 1 trong khi đó ô trống mang giá trị 0. Từ hình ảnh sau, nếu muốn xét vị trí có khả năng đặt quân hậu cần phải xét cả 4 ràng buộc như trên rất khó để diễn giải. Cặp hậu Q1 - Q3 sẽ tấn công lẫn nhau. 
+Một trong những hạn chế của việc biểu diễn trong không gian nhị phân là khó diễn giải các ô có thể tấn công. Giả sử có bàn cờ 8 X 8, với 4 con hậu. Ô chứa con hậu sẽ mang giá trị 1 trong khi đó ô trống mang giá trị 0. Từ hình ảnh sau, nếu muốn xét vị trí có khả năng đặt quân hậu cần phải xét cả 4 ràng buộc như trên rất khó để diễn giải. Cặp hậu Q1 - Q3 sẽ tấn công lẫn nhau.
 ![Bàn cờ 8 X 8 chứa 4 quân hậu](imgs/Binary_8X8.jpg)
 
 Để có thể giải quyết vấn đề trên, giải pháp được đặt ra là chuyển bàn cờ sang không gian số nguyên. Nếu đặt, hoặc gỡ sẽ cộng hoặc trừ 1 đơn vị. Như vậy có thể biễu diễn tri thức dễ hiểu hơn. Như hình sau đây biểu diễn hướng tấn công của quân hậu, màu nhạt thể hiện hướng tấn công của Q1 (vàng) và Q3 (lam). Ô và hướng màu đậm thể hiện tấn công trùng lặp. Ví dụ đặt quân hậu tại các vị trí sau:
@@ -108,7 +108,7 @@ Cập nhật đối với hàng: `board[row, i] += 1`
 Cập nhật đối với cột: `board[i, col] += 1`
 
 ### Cập nhật chéo
-Đối với cập nhật đường chéo thì hơi phức tạp hơn. Do bàn cờ có thước 8X8, cho nên số bước tối đa mà có thể duyệt là 7. 
+Đối với cập nhật đường chéo thì hơi phức tạp hơn. Do bàn cờ có thước 8X8, cho nên số bước tối đa mà có thể duyệt là 7.
 Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col + i, pos\_row \in {1 .. 8}, pos\_col \in {1 .. 8}$
 Cập nhật chéo chính `board[pos_row, pos_col] += 1`. Với $pos_row = row + i, pos_col = col - i, pos\_row \in {1 .. 8}, pos\_col \in {1 .. 8}$
 
@@ -130,26 +130,33 @@ THEN check(row, col) <- true
 
 ## Hàm update
 **R3**:<br>
-board[row][col] <- board[row][col] -  3*sign<br>
-$\forall i \in \lbrace 1..8 \rbrace$<br>
-board[row][i] <- board[row][i] + sign<br>
-board[i][col] <- board[i][col] + sign
+IF check(row, col) = True<br>
+THEN
+    $\forall k \in \lbrace 0..7 \rbrace$<br>
+    $\qquad$ board[row][k] <- board[row][k] + 1<br>
+    $\qquad$ board[k][col] <- board[k][col] + 1<br>
+    $\qquad$ AND $\forall i,j \in \lbrace -7..7 \rbrace$<br>
+    $\qquad$ $\qquad$ poss_row <- row + i<br>
+    $\qquad$ $\qquad$ poss_col <- col + i<br>
+    $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
+    $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
+    $\qquad$ $\qquad$ poss_col <- col - i<br>
+    $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
+    $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
 
-**R4**:<br>
-$\forall i \in \lbrace -7..7 \rbrace$<br>
-poss_row <- row + i<br>
-
-poss_col <- col + i<br>
-IF  in_bound(poss_row)<br>
-    AND in_bound(poss_col)<br>
-THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + sign<br>
-
-poss_col <- col - i<br>
-IF  in_bound(poss_row)<br>
-    AND in_bound(poss_col)<br>
-THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + sign<br>
-
-# Hàm backtrack
-IF 
-
+**R4**<br>
+IF check(row, col) = True<br>
+AND try_col(row, 0, count) = False<br>
+THEN<br>
+$\qquad$ $\forall k \in \lbrace 0..7 \rbrace$<br>
+$\qquad$ board[row][k] <- board[row][k] - 1<br>
+$\qquad$ board[k][col] <- board[k][col] - 1<br>
+$\qquad$ AND $\forall i,j \in \lbrace -7..7 \rbrace$<br>
+$\qquad$ $\qquad$ poss_row <- row + i<br>
+$\qquad$ $\qquad$ poss_col <- col + i<br>
+$\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
+$\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1<br>
+$\qquad$ $\qquad$ poss_col <- col - i<br>
+$\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
+$\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1
 
