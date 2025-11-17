@@ -148,7 +148,7 @@ bool Solver::try_col(int row, int col, int count){
 
     */
     if (count == 8) return true; // Count đặt 8 quay về hàng đầu tiên
-    if (col >= 8) return false; // Backtrack
+    if (col == 8) return false; // Backtrack
 
     // Nếu vị trí hợp lệ thì update, count+1 và tiếp sang hàng tiếp theo
     row = (row + 8) % 8; // Chia lấy phần nguyên mang về giá trị [0, 7]

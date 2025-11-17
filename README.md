@@ -119,17 +119,17 @@ Sau khi cập nhật trạng thái chỉ cần kiểm tra vị trí đó có man
 Luật được viết sau đây sẽ dựa trên code thay vì lý thuyết, tức là sẽ dùng chỉ số (0 -> 7).
 
 ## Hàm inbound
-**R1**:<br>
+**R1**: Luật xét trong biên<br>
 IF $0 \leq value \leq 7$<br>
 THEN in_bound(value) <- true
 
 ## Hàm check
-**R2**:<br>
+**R2:** Luật kiểm tra vị trí có khả năng đặt quân hậu<br> 
 IF board[row][col] = 0<br>
 THEN check(row, col) <- true
 
 ## Hàm update
-**R3**:<br>
+**R3**: Luật đặt hậu<br>
 IF check(row, col) = True<br>
 THEN
     $\forall k \in \lbrace 0..7 \rbrace$<br>
@@ -143,8 +143,9 @@ THEN
     $\qquad$ $\qquad$ poss_col <- col - i<br>
     $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
     $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] + 1<br>
+    $\qquad$ board[poss_row][poss_col] <- board[poss_row][poss_col] - 3
 
-**R4**<br>
+**R4:** Luật gỡ hậu<br>
 IF check(row, col) = True<br>
 AND try_col(row, 0, count) = False<br>
 THEN<br>
@@ -158,5 +159,25 @@ $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
 $\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1<br>
 $\qquad$ $\qquad$ poss_col <- col - i<br>
 $\qquad$ $\qquad$ IF in_bound(poss_row) AND in_bound(poss_col)<br>
-$\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1
+$\qquad$ $\qquad$ $\qquad$ THEN board[poss_row][poss_col] <- board[poss_row][poss_col] - 1<br>
+$\qquad$ board[poss_row][poss_col] <- board[poss_row][poss_col] + 3
+
+## Hàm backtrack
+**R5:** Luật chiến thắng<br>
+IF count = 8<br>
+THEN try_col(row, col, count) <- True
+
+**R6:** Luật quay lui
+IF col = 8<br>
+THEN try_col(row, col, count) <- False
+
+**R7:** Luật xét cột tiếp theo
+IF check(row, col) = False<br>
+THEN try_col(row, col, count) <- try_col(row, col+1, count)
+
+**R8:** Luật xét hàng tiếp theo nếu đặt được
+IF check(row, col) = False<br>
+AND IF try(row+1, 0, count) = True<br>
+$\qquad$ THEN  try(row, col, count) <- True
+
 
