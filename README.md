@@ -13,8 +13,6 @@
     2. [Hàm check](#hàm-check)
     3. [Hàm update](#hàm-update)
     4. [Hàm backtrack](#hàm-backtrack)
-    5. [Kiểm tra input người dùng](#kiểm-tra-input-người-dùng)
-    6. [Hàm solve](#hàm-solve)
 
 
 # Giới thiệu nhóm
