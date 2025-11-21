@@ -9,7 +9,7 @@
 
 
 class Solver{
-private:
+protected:
     int start_row;
     int start_col;
     int board[8][8] = {0}; // Khởi tạo bàn cờ

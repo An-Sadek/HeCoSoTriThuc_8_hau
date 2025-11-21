@@ -7,6 +7,7 @@ Solver::Solver(int start_row_pos, int start_col_pos){
         std::cerr << "start_row_pos và start_row_pos phải nằm trong khoảng [1, 8]\n";
         exit(1);
     }
+
     start_row = start_row_pos - 1;
     start_col = start_col_pos - 1;
 }

@@ -60,7 +60,9 @@ Cài biên dịch <br>
 [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw)
 
 Biên dịch <br>
-Sau khi đã cài g++, biên dịch bằng lệnh `g++ -o main main.cpp _8_queens.cpp`.
+Sau khi đã cài g++, biên dịch bằng lệnh bằng các lệnh trong **Makefile**.
+- run: Biên dịch main.
+- history: Biên dịch history để in ra lịch sử.
 
 Chạy chương trình<br>
 Đối với Debian/Ubuntu<br>
@@ -176,7 +178,7 @@ IF check(row, col) = False<br>
 $\qquad$ THEN try_col(row, col, count) <- try_col(row, col+1, count)
 
 **R8:** Luật xét hàng tiếp theo nếu đặt được<br>
-IF check(row, col) = False<br>
+IF check(row, col) = True<br>
 AND IF try(row+1, 0, count) = True<br>
 $\qquad$ THEN  try(row, col, count) <- True
 
