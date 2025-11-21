@@ -1,19 +1,16 @@
 # Mục lục
 1. [Giới thiệu nhóm](#giới-thiệu-nhóm)
-2. [Cấu trúc thư mục](#cấu-trúc-thư-mục)
-3. [Thư viện sử dụng](#thư-viện-sử-dụng)
-4. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
-5. [Mô tả bài toán](#mô-tả-bài-toán)
-6. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
+2. [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
+3. [Mô tả bài toán](#mô-tả-bài-toán)
+4. [Ý tưởng bài toán](#ý-tưởng-giải-bài-toán)
     1. [Quan hệ giữa quân hậu và các hướng tấn công](#quan-hệ-giữa-quân-hậu-và-các-hướng-tấn-công)
     2. [Biểu diễn bàn cờ trong không gian số nguyên](#biểu-diễn-bàn-cờ-trong-không-gian-số-nguyên)
     3. [Cập nhật bàn cờ trong không gian số nguyên và ràng buộc](#cập-nhật-bàn-cờ-trong-không-gian-số-nguyên-và-ràng-buộc)
-7. [Luật dẫn](#luật-dẫn)
+5. [Luật dẫn](#luật-dẫn)
     1. [Hàm in_bound](#hàm-inbound)
     2. [Hàm check](#hàm-check)
     3. [Hàm update](#hàm-update)
     4. [Hàm backtrack](#hàm-backtrack)
-
 
 # Giới thiệu nhóm
 Nhóm: 4 <br>
@@ -27,27 +24,6 @@ Danh sách thành viên:
 | 3     | Phan Nguyễn Vũ Huy    | KHDL2211010   |               |
 | 4     | Nguyễn Việt Khánh     | KHDL2211017   |               |
 | 5     | Phạm Hữu Nhân         | KHDL2211015   |               |
-
-
-# Cấu trúc thư mục
-<span>
-. <br>
-|-- _8_queens.cpp <br>
-|-- _8_queens.h <br>
-|-- test.cpp <br>
-|-- main.cpp <br>
-|-- Makefile <br>
-File header (_8_queens.h): Mục đích là để khai báo, liên kết đến với các thư viện sẽ sử dụng, và tạo một khung cho file source. <br>
-File source (_8_queens.cpp): Chứa mã lệnh để sử dụng trong việc giải quyết bài toán. <br>
-File test.cpp, main.cpp: Dùng để kiểm thử và chạy kết quả cuối cùng. <br>
-Makefile: Chứa lệnh biên dịch và chạy để không phải viết lại mỗi lần muốn kiểm thử. <br>
-</span>
-
-# Thư viện sử dụng
-cstdio: Thực hiện các thao tác liên quan đến input/output theo kiểu C. <br>
-cstdlib: Các công cụ hỗ trợ theo kiểu C như việc phân bổ, giải phóng bộ nhớ, chuyển string sang số. <br>
-cassert: Dùng để debug, phát hiện lỗi. <br>
-queue: Thư viện hàng chờ của C++.
 
 # Hướng dẫn sử dụng
 Cài biên dịch <br>
@@ -68,9 +44,6 @@ Chạy chương trình<br>
 
 Đối với Windows<br>
 `main.exe {Hàng muốn đặt quân hậu đầu} {Cột muốn đặt quân hậu đầu}`
-
-# Mô tả bài toán
-(pass)
 
 # Ý tưởng giải bài toán
 Thuật toán được lựa chọn để sử dụng là backtracking, vì đơn giản, dễ hiểu nhất. Để có thể thực hiện backtracking thì cần ràng buộc. Từ mô tả bài toán sẽ có 4 ràng buộc. Giả sử có $board \in \mathbb{N}^{8 X 8}, board_{i,j} \in \{0, 1\}$ chỉ mang giá trị 0 (không có quân hậu) và 1 (có quân hậu), bài toán cần thỏa các ràng buộc sau: ràng buộc dòng, ràng buộc cột, ràng buộc chéo chính, ràng buộc chéo phụ.
