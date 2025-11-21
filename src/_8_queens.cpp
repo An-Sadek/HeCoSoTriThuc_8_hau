@@ -1,7 +1,15 @@
 #include <_8_queens.h>
 
 
-Solver::Solver(){}
+Solver::Solver(int start_row_pos, int start_col_pos){
+    // Input là vị trí
+    if (!(1 <= start_row_pos && start_row_pos <= 8)) {
+        std::cerr << "start_row_pos và start_row_pos phải nằm trong khoảng [1, 8]\n";
+        exit(1);
+    }
+    start_row = start_row_pos - 1;
+    start_col = start_col_pos - 1;
+}
 
 void Solver::print_board_state() {
     /*
@@ -21,17 +29,18 @@ void Solver::print_board_state() {
     }
     printf("\n");
 
+    // In trạng thái bàn cờ
     for (int i = 0; i <= 7; i++) {
-        printf("%d| ", i+1);
+        printf("%d| ", i+1); // In vị trí hàng
 
         for (int j = 0; j <= 7; j++) {
-            printf("%d  ", board[i][j]);
+            printf("%d  ", board[i][j]); // In trạng thái
         }
         printf("\n");
     }
 }
 
-void Solver::print_board_queen(const int start_pos[2]){
+void Solver::print_board_queen(){
     /*
     In bàn cờ dưới dạng quân hậu
     */
@@ -46,17 +55,17 @@ void Solver::print_board_queen(const int start_pos[2]){
         printf("%d ", i+1); // In vị trí hàng
 
         for (int j = 0; j <= 7; j++) {
-            if (i == start_pos[0] && j == start_pos[1]){
-                printf("X ");
+            if (i == start_row && j == start_col){
+                printf("X "); // In X cho cho vị trí ban đầu dễ nhìn
                 continue;
             }
 
             if (board[i][j] == 1){
-                printf("Q ");
+                printf("Q "); // In quân hậu
                 continue;
             }
 
-            printf(". ");
+            printf(". "); // Không in để trống
         }
         printf("\n");
     }
@@ -83,7 +92,7 @@ bool Solver::check(const int row, const int col) {
     return board[row][col] == 0;
 }
 
-void Solver::update(const int row, const int col, int sign) {
+void Solver::update(const int row, const int col, const int sign) {
     /*
     Hàm cập nhật trạng thái bàn cờ.
     Khi khởi tạo, các phần tử trong bàn cờ đều là 0.
@@ -175,12 +184,12 @@ bool Solver::try_col(int row, int col, int count){
     return try_col(row, col, count);
 }
 
-void Solver::solve(const int start_pos[2]) {
-    if (try_col(start_pos[0], start_pos[1], 0)){
+void Solver::solve() {
+    if (try_col(start_row, start_col, 0)){
         printf("Đã giải được bài toán\n");
         print_board_state();
         printf("\n");
-        print_board_queen(start_pos);
+        print_board_queen();
     } else{
         printf("Không giải được bài toán, tìm lỗi!\n");
         assert(false); // Dừng để debug

@@ -1,5 +1,6 @@
 #ifndef _8QUEENS_H
 #define _8QUEENS_H
+#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
@@ -9,13 +10,15 @@
 
 class Solver{
 private:
+    int start_row;
+    int start_col;
     int board[8][8] = {0}; // Khởi tạo bàn cờ
 
 public:
-    Solver();
+    Solver(int start_row_pos, int start_col_pos);
 
     // Hàm in
-    void print_board_queen(const int start_pos[2]);
+    void print_board_queen();
     void print_board_state();
 
     // Hàm hoạt động
@@ -23,7 +26,7 @@ public:
     bool check(const int row, const int col);
     void update(const int row, const int col, const int sign);
     bool try_col(int row, const int col, int count);
-    void solve(const int lock[2]);
+    void solve();
 };
 
 #endif
