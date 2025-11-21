@@ -177,9 +177,4 @@ $\qquad$ THEN try_col(row, col, count) <- False
 IF check(row, col) = False<br>
 $\qquad$ THEN try_col(row, col, count) <- try_col(row, col+1, count)
 
-**R8:** Luật xét hàng tiếp theo nếu đặt được<br>
-IF check(row, col) = True<br>
-AND IF try(row+1, 0, count) = True<br>
-$\qquad$ THEN  try(row, col, count) <- True
-
 
